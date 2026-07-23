@@ -1,7 +1,5 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Get a free hosted Postgres database in seconds: `npx create-db`
+// Prisma schema for Vastukruti Architects
+// Existing generator and datasource definitions
 
 generator client {
   provider = "prisma-client"
@@ -10,4 +8,19 @@ generator client {
 
 datasource db {
   provider = "postgresql"
+  // The connection URL will be set via environment variable DATABASE_URL
+}
+
+// Placeholder Project model
+model Project {
+  id          Int      @id @default(autoincrement())
+  title       String
+  slug        String   @unique
+  description String?
+  techStack   String[] // array of tech tags
+  image       String   // path to image in public/projects
+  demoUrl     String?  // live demo link
+  repoUrl     String?  // GitHub repository link
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }
