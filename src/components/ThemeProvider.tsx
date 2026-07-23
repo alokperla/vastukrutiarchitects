@@ -1,7 +1,5 @@
 "use client";
-
 import { useEffect, useState, createContext, useContext, ReactNode } from "react";
-
 interface ThemeProviderProps {
   children: ReactNode;
 }

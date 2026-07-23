@@ -32,10 +32,12 @@ export default function RootLayout({
       lang="en"
       className={cn("h-full", "antialiased", geistSans.variable, geistMono.variable, "font-sans", inter.variable)}
     >
-      <ThemeProvider>
-        <Navbar />
-        {children}
-      </ThemeProvider>
+      <body className="flex flex-col min-h-screen">
+        <ThemeProvider>
+          <Navbar />
+          {children}
+        </ThemeProvider>
+      </body>
     </html>
   );
 }

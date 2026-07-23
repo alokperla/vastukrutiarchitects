@@ -1,6 +1,8 @@
+"use client";
+
 import Link from "next/link";
-import { useTheme } from "@/components/ThemeProvider";
 import { Sun, Moon } from "lucide-react";
+import { useTheme } from "@/components/ThemeProvider";
 
 export default function Navbar() {
   const { theme, setTheme } = useTheme();
@@ -12,7 +14,7 @@ export default function Navbar() {
   return (
     <nav className="flex items-center justify-between px-6 py-4 bg-background border-b border-border">
       <Link href="/" className="flex items-center space-x-2">
-        <img src="/brand/logo.jpeg" alt="Vastukruti Architects" className="h-8 w-auto" />
+        <img src="/brand/vastukruti%20logo.jpeg" alt="Vastukruti Architects" className="h-8 w-auto" />
         <span className="text-xl font-semibold text-foreground">Vastukruti Architects</span>
       </Link>
       <button
