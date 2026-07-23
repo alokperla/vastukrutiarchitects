@@ -327,7 +327,7 @@ export default function AdminDashboard() {
             View Live Site ↗
           </Link>
           <button
-            onClick={() => signOut({ callbackUrl: "/admin/login" })}
+            onClick={() => signOut({ callbackUrl: "/" })}
             className="text-xs bg-red-950/60 hover:bg-red-900 border border-red-800 text-red-300 font-medium px-4 py-2 rounded-xl transition-all"
           >
             Sign Out
