@@ -1,18 +1,52 @@
-﻿"use client";
+"use client";
 
 import Image from "next/image";
 import Link from "next/link";
 import Footer from "@/components/Footer";
-import { projects } from "@/lib/projects";
+import { projects as staticProjects, Project } from "@/lib/projects";
 import { useState, useCallback, useEffect } from "react";
 
-const categories = ["All", "Interior", "Architecture"];
+const categories = ["All", "Interior", "Architecture", "Commercial"];
 
 export default function ProjectsPage() {
   const [active, setActive] = useState("All");
   const [lightboxIdx, setLightboxIdx] = useState<number | null>(null);
+  const [allProjectsList, setAllProjectsList] = useState<Project[]>(staticProjects);
 
-  const filtered = active === "All" ? projects : projects.filter((p) => p.category === active);
+  // Fetch DB projects & combine with static projects
+  useEffect(() => {
+    async function loadDbProjects() {
+      try {
+        const res = await fetch("/api/projects");
+        if (res.ok) {
+          const dbProjects = await res.json();
+          if (Array.isArray(dbProjects) && dbProjects.length > 0) {
+            const mappedDb: Project[] = dbProjects.map((p) => ({
+              slug: p.slug,
+              src: p.coverImage,
+              gallery: p.gallery && p.gallery.length > 0 ? p.gallery : [p.coverImage],
+              title: p.title,
+              category: p.category,
+              desc: p.description,
+              year: p.year,
+              location: p.location,
+              area: p.area,
+              scope: p.scope || [],
+            }));
+            // Combine DB projects at the top, avoiding duplicate slugs
+            const dbSlugs = new Set(mappedDb.map((p) => p.slug));
+            const remainingStatic = staticProjects.filter((p) => !dbSlugs.has(p.slug));
+            setAllProjectsList([...mappedDb, ...remainingStatic]);
+          }
+        }
+      } catch (err) {
+        console.error("Error loading DB projects:", err);
+      }
+    }
+    loadDbProjects();
+  }, []);
+
+  const filtered = active === "All" ? allProjectsList : allProjectsList.filter((p) => p.category === active);
   const closeLightbox = useCallback(() => setLightboxIdx(null), []);
   const prev = useCallback(() => setLightboxIdx((i) => (i !== null ? (i - 1 + filtered.length) % filtered.length : null)), [filtered.length]);
   const next = useCallback(() => setLightboxIdx((i) => (i !== null ? (i + 1) % filtered.length : null)), [filtered.length]);
@@ -51,7 +85,7 @@ export default function ProjectsPage() {
                 className={`px-6 py-2.5 rounded-full text-sm font-medium transition-all border ${active === c ? "bg-blue-600 text-white border-blue-600 shadow-lg shadow-blue-900/20" : "text-gray-500 dark:text-gray-400 border-gray-200 dark:border-gray-700 hover:border-blue-400 hover:text-blue-600 dark:hover:text-blue-400"}`}>
                 {c}
                 <span className={`ml-2 text-xs px-1.5 py-0.5 rounded-full ${active === c ? "bg-white/20" : "bg-gray-100 dark:bg-gray-800"}`}>
-                  {c === "All" ? projects.length : projects.filter(p => p.category === c).length}
+                  {c === "All" ? allProjectsList.length : allProjectsList.filter(p => p.category === c).length}
                 </span>
               </button>
             ))}
@@ -60,7 +94,7 @@ export default function ProjectsPage() {
           {/* Masonry grid */}
           <div className="columns-1 sm:columns-2 lg:columns-3 gap-6 space-y-6">
             {filtered.map((p, i) => (
-              <div key={`${active}-${i}`} className="break-inside-avoid group relative block overflow-hidden rounded-2xl bg-gray-100 dark:bg-gray-900">
+              <div key={`${p.slug}-${i}`} className="break-inside-avoid group relative block overflow-hidden rounded-2xl bg-gray-100 dark:bg-gray-900">
                 <Link href={`/projects/${p.slug}`}>
                   <Image src={p.src} alt={p.title} width={600} height={450} sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw" className="w-full object-cover transition-transform duration-500 group-hover:scale-105" />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />

@@ -1,20 +1,80 @@
-﻿"use client";
+"use client";
 
-import { notFound } from "next/navigation";
-import { projects } from "@/lib/projects";
+import { projects as staticProjects, Project } from "@/lib/projects";
 import Image from "next/image";
 import Link from "next/link";
 import Footer from "@/components/Footer";
-import { useState } from "react";
-import { use } from "react";
+import { useState, useEffect, use } from "react";
 
 export default function ProjectDetailPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = use(params);
-  const project = projects.find((p) => p.slug === slug);
-  if (!project) notFound();
-
+  const [project, setProject] = useState<Project | null>(null);
+  const [loading, setLoading] = useState(true);
   const [activeImg, setActiveImg] = useState(0);
-  const others = projects.filter((p) => p.slug !== slug).slice(0, 3);
+  const [others, setOthers] = useState<Project[]>([]);
+
+  useEffect(() => {
+    async function loadProject() {
+      setLoading(true);
+      // Check static projects first
+      const staticMatch = staticProjects.find((p) => p.slug === slug);
+      if (staticMatch) {
+        setProject(staticMatch);
+        setOthers(staticProjects.filter((p) => p.slug !== slug).slice(0, 3));
+        setLoading(false);
+        return;
+      }
+
+      // If not in static, fetch from API
+      try {
+        const res = await fetch("/api/projects");
+        if (res.ok) {
+          const dbProjects = await res.json();
+          const dbMatch = dbProjects.find((p: any) => p.slug === slug);
+          if (dbMatch) {
+            const mapped: Project = {
+              slug: dbMatch.slug,
+              src: dbMatch.coverImage,
+              gallery: dbMatch.gallery && dbMatch.gallery.length > 0 ? dbMatch.gallery : [dbMatch.coverImage],
+              title: dbMatch.title,
+              category: dbMatch.category,
+              desc: dbMatch.description,
+              year: dbMatch.year,
+              location: dbMatch.location,
+              area: dbMatch.area,
+              scope: dbMatch.scope || [],
+            };
+            setProject(mapped);
+            setOthers(staticProjects.slice(0, 3));
+          }
+        }
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    }
+    loadProject();
+  }, [slug]);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-white dark:bg-gray-950 pt-32 flex justify-center text-gray-400">
+        Loading project details...
+      </div>
+    );
+  }
+
+  if (!project) {
+    return (
+      <main className="min-h-screen bg-white dark:bg-gray-950 pt-32 text-center">
+        <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">Project Not Found</h1>
+        <Link href="/projects" className="text-blue-600 dark:text-blue-400 hover:underline">
+          ← Back to Projects
+        </Link>
+      </main>
+    );
+  }
 
   return (
     <>
@@ -22,7 +82,7 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ slug: 
         {/* Hero image */}
         <div className="relative h-[50vh] md:h-[70vh] overflow-hidden bg-gray-900">
           <Image
-            src={project.gallery[activeImg]}
+            src={project.gallery[activeImg] || project.src}
             alt={project.title}
             fill
             priority
@@ -30,14 +90,12 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ slug: 
             className="object-cover object-center transition-opacity duration-500"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/60" />
-          {/* Breadcrumb */}
-          <div className="absolute top-6 left-6 flex items-center gap-2 text-white/70 text-sm">
+          <div className="absolute top-6 left-6 flex items-center gap-2 text-white/70 text-sm z-10">
             <Link href="/projects" className="hover:text-white transition-colors">Projects</Link>
             <span>/</span>
             <span className="text-white">{project.title}</span>
           </div>
-          {/* Category badge */}
-          <div className="absolute bottom-6 left-6">
+          <div className="absolute bottom-6 left-6 z-10">
             <span className="bg-blue-600/90 backdrop-blur-sm text-white text-xs uppercase tracking-widest px-3 py-1 rounded-full font-medium">
               {project.category}
             </span>
@@ -60,25 +118,24 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ slug: 
         )}
 
         <div className="max-w-6xl mx-auto px-6 py-16 grid md:grid-cols-3 gap-16">
-          {/* Left — details */}
           <div className="md:col-span-2">
             <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-6">{project.title}</h1>
             <p className="text-gray-600 dark:text-gray-400 text-lg leading-relaxed mb-8">{project.desc}</p>
 
-            {/* Scope tags */}
-            <div>
-              <h3 className="text-xs uppercase tracking-widest text-gray-400 dark:text-gray-500 mb-3">Scope of Work</h3>
-              <div className="flex flex-wrap gap-2">
-                {project.scope.map((s) => (
-                  <span key={s} className="px-4 py-1.5 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 text-sm rounded-full">
-                    {s}
-                  </span>
-                ))}
+            {project.scope.length > 0 && (
+              <div>
+                <h3 className="text-xs uppercase tracking-widest text-gray-400 dark:text-gray-500 mb-3">Scope of Work</h3>
+                <div className="flex flex-wrap gap-2">
+                  {project.scope.map((s) => (
+                    <span key={s} className="px-4 py-1.5 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 text-sm rounded-full">
+                      {s}
+                    </span>
+                  ))}
+                </div>
               </div>
-            </div>
+            )}
           </div>
 
-          {/* Right — meta */}
           <div>
             <div className="bg-gray-50 dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-2xl p-6 divide-y divide-gray-100 dark:divide-gray-800">
               {[
@@ -105,7 +162,6 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ slug: 
           </div>
         </div>
 
-        {/* Other projects */}
         {others.length > 0 && (
           <div className="bg-gray-50 dark:bg-gray-900 border-t border-gray-100 dark:border-gray-800 py-16 px-6">
             <div className="max-w-6xl mx-auto">
