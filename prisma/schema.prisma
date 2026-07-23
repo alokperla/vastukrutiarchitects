@@ -1,6 +1,3 @@
-// Prisma schema for Vastukruti Architects
-// Existing generator and datasource definitions
-
 generator client {
   provider = "prisma-client"
   output   = "../src/generated/prisma"
@@ -8,19 +5,47 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  // The connection URL will be set via environment variable DATABASE_URL
 }
 
-// Placeholder Project model
-model Project {
+model Enquiry {
+  id        Int      @id @default(autoincrement())
+  name      String
+  email     String
+  phone     String?
+  message   String
+  status    String   @default("new")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model AdminUser {
+  id           Int      @id @default(autoincrement())
+  email        String   @unique
+  passwordHash String
+  createdAt    DateTime @default(now())
+}
+
+model ProjectEntry {
   id          Int      @id @default(autoincrement())
-  title       String
   slug        String   @unique
-  description String?
-  techStack   String[] // array of tech tags
-  image       String   // path to image in public/projects
-  demoUrl     String?  // live demo link
-  repoUrl     String?  // GitHub repository link
+  title       String
+  category    String
+  description String
+  year        String
+  location    String
+  area        String
+  coverImage  String
+  gallery     String[] @default([])
+  scope       String[] @default([])
+  published   Boolean  @default(true)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+}
+
+model SiteSettings {
+  id        Int    @id @default(1)
+  whatsapp  String @default("")
+  email     String @default("")
+  instagram String @default("")
+  aboutText String @default("")
 }
