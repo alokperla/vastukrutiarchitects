@@ -1,4 +1,4 @@
-﻿import { NextRequest, NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { z } from "zod";
 
@@ -17,7 +17,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ success: true, id: enquiry.id }, { status: 201 });
   } catch (err) {
     if (err instanceof z.ZodError) {
-      return NextResponse.json({ success: false, errors: err.errors }, { status: 400 });
+      return NextResponse.json({ success: false, errors: err.issues }, { status: 400 });
     }
     console.error("Enquiry creation error:", err);
     return NextResponse.json({ success: false, error: "Server error" }, { status: 500 });
