@@ -21,9 +21,10 @@ export async function POST(req: NextRequest) {
     const arrayBuffer = await file.arrayBuffer();
     const buffer = Buffer.from(arrayBuffer);
 
-    // Attempt Cloudinary upload first if configured
+    // 1. Try Cloudinary upload if Cloudinary is configured
     try {
-      if (process.env.CLOUDINARY_CLOUD_NAME && process.env.CLOUDINARY_CLOUD_NAME !== "vastukrutiarchitects") {
+      const cloudName = process.env.CLOUDINARY_CLOUD_NAME;
+      if (cloudName && cloudName !== "vastukrutiarchitects") {
         const uploadResult = await new Promise<{ secure_url: string }>((resolve, reject) => {
           const stream = cloudinary.uploader.upload_stream(
             { folder: "vastukruti_projects" },
@@ -37,24 +38,33 @@ export async function POST(req: NextRequest) {
         return NextResponse.json({ url: uploadResult.secure_url }, { status: 200 });
       }
     } catch (cErr) {
-      console.warn("Cloudinary upload skipped or failed, using local storage fallback:", cErr);
+      console.warn("Cloudinary upload failed:", cErr);
     }
 
-    // Local Storage Fallback: Save file to public/uploads
-    const uploadsDir = path.join(process.cwd(), "public", "uploads");
-    await fs.mkdir(uploadsDir, { recursive: true });
+    // 2. Try Local File System Upload (works on local dev machine)
+    try {
+      const uploadsDir = path.join(process.cwd(), "public", "uploads");
+      await fs.mkdir(uploadsDir, { recursive: true });
 
-    const ext = path.extname(file.name) || ".jpg";
-    const sanitizeName = file.name.replace(/[^a-zA-Z0-9]/g, "_").toLowerCase();
-    const fileName = `img_${Date.now()}_${sanitizeName}${ext}`;
-    const filePath = path.join(uploadsDir, fileName);
+      const ext = path.extname(file.name) || ".jpg";
+      const sanitizeName = file.name.replace(/[^a-zA-Z0-9]/g, "_").toLowerCase();
+      const fileName = `img_${Date.now()}_${sanitizeName}${ext}`;
+      const filePath = path.join(uploadsDir, fileName);
 
-    await fs.writeFile(filePath, buffer);
+      await fs.writeFile(filePath, buffer);
+      return NextResponse.json({ url: `/uploads/${fileName}` }, { status: 200 });
+    } catch (fsErr) {
+      console.warn("Local filesystem is read-only (Vercel serverless environment), using Base64 Data URI fallback.");
+    }
 
-    const publicUrl = `/uploads/${fileName}`;
-    return NextResponse.json({ url: publicUrl }, { status: 200 });
+    // 3. Vercel Serverless Fallback: Convert to Base64 Data URI
+    const mimeType = file.type || "image/jpeg";
+    const base64Data = buffer.toString("base64");
+    const dataUri = `data:${mimeType};base64,${base64Data}`;
+
+    return NextResponse.json({ url: dataUri }, { status: 200 });
   } catch (err) {
     console.error("Upload handler error:", err);
-    return NextResponse.json({ error: "Failed to upload image file" }, { status: 500 });
+    return NextResponse.json({ error: "Failed to process photo upload" }, { status: 500 });
   }
 }
