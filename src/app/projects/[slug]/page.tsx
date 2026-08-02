@@ -96,7 +96,7 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ slug: 
             <span className="text-white">{project.title}</span>
           </div>
           <div className="absolute bottom-6 left-6 z-10">
-            <span className="bg-blue-600/90 backdrop-blur-sm text-white text-xs uppercase tracking-widest px-3 py-1 rounded-full font-medium">
+            <span className="bg-terracotta-600/90 backdrop-blur-sm text-white text-xs uppercase tracking-widest px-3.5 py-1.5 rounded-full font-semibold shadow-md">
               {project.category}
             </span>
           </div>
@@ -104,12 +104,12 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ slug: 
 
         {/* Thumbnail strip */}
         {project.gallery.length > 1 && (
-          <div className="flex gap-3 px-6 py-4 bg-gray-50 dark:bg-gray-900 border-b border-gray-100 dark:border-gray-800 overflow-x-auto">
+          <div className="flex gap-3 px-6 py-4 bg-plum-50/40 dark:bg-gray-900 border-b border-plum-100 dark:border-gray-800 overflow-x-auto">
             {project.gallery.map((img, i) => (
               <button
                 key={i}
                 onClick={() => setActiveImg(i)}
-                className={`relative flex-shrink-0 w-20 h-14 rounded-lg overflow-hidden transition-all ${i === activeImg ? "ring-2 ring-blue-500 opacity-100" : "opacity-50 hover:opacity-80"}`}
+                className={`relative flex-shrink-0 w-20 h-14 rounded-lg overflow-hidden transition-all ${i === activeImg ? "ring-2 ring-terracotta-500 opacity-100" : "opacity-50 hover:opacity-80"}`}
               >
                 <Image src={img} alt={`View ${i + 1}`} fill sizes="80px" className="object-cover" />
               </button>
@@ -119,15 +119,15 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ slug: 
 
         <div className="max-w-6xl mx-auto px-6 py-16 grid md:grid-cols-3 gap-16">
           <div className="md:col-span-2">
-            <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-6">{project.title}</h1>
-            <p className="text-gray-600 dark:text-gray-400 text-lg leading-relaxed mb-8">{project.desc}</p>
+            <h1 className="text-4xl md:text-5xl font-bold text-plum-900 dark:text-white mb-6">{project.title}</h1>
+            <p className="text-gray-700 dark:text-gray-300 text-lg leading-relaxed mb-8">{project.desc}</p>
 
             {project.scope.length > 0 && (
               <div>
-                <h3 className="text-xs uppercase tracking-widest text-gray-400 dark:text-gray-500 mb-3">Scope of Work</h3>
+                <h3 className="text-xs uppercase tracking-widest text-terracotta-600 dark:text-terracotta-400 font-semibold mb-3">Scope of Work</h3>
                 <div className="flex flex-wrap gap-2">
                   {project.scope.map((s) => (
-                    <span key={s} className="px-4 py-1.5 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 text-sm rounded-full">
+                    <span key={s} className="px-4 py-1.5 bg-terracotta-50 dark:bg-terracotta-950/40 text-terracotta-700 dark:text-terracotta-300 text-sm rounded-full font-medium border border-terracotta-200/60 dark:border-terracotta-800/40">
                       {s}
                     </span>
                   ))}
@@ -137,7 +137,7 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ slug: 
           </div>
 
           <div>
-            <div className="bg-gray-50 dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-2xl p-6 divide-y divide-gray-100 dark:divide-gray-800">
+            <div className="bg-plum-50/40 dark:bg-gray-900 border border-plum-100 dark:border-gray-800 rounded-2xl p-6 divide-y divide-plum-100 dark:divide-gray-800">
               {[
                 { label: "Year", value: project.year },
                 { label: "Location", value: project.location },
@@ -145,17 +145,17 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ slug: 
                 { label: "Category", value: project.category },
               ].map((m) => (
                 <div key={m.label} className="py-4 first:pt-0 last:pb-0">
-                  <p className="text-xs text-gray-400 dark:text-gray-500 uppercase tracking-widest mb-1">{m.label}</p>
-                  <p className="text-gray-900 dark:text-white font-medium">{m.value}</p>
+                  <p className="text-xs text-gray-500 dark:text-gray-400 uppercase tracking-widest mb-1">{m.label}</p>
+                  <p className="text-plum-900 dark:text-white font-semibold">{m.value}</p>
                 </div>
               ))}
             </div>
 
             <div className="mt-6 flex flex-col gap-3">
-              <Link href="/contact" className="w-full text-center bg-blue-600 hover:bg-blue-500 text-white font-semibold py-3 px-6 rounded-xl transition-all hover:scale-[1.02]">
+              <Link href="/contact" className="w-full text-center bg-terracotta-600 hover:bg-terracotta-700 text-white font-semibold py-3 px-6 rounded-xl transition-all hover:scale-[1.02] shadow-md shadow-terracotta-600/20 active:scale-95">
                 Enquire About This Project
               </Link>
-              <Link href="/projects" className="w-full text-center border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:border-gray-400 font-medium py-3 px-6 rounded-xl transition-all">
+              <Link href="/projects" className="w-full text-center border border-plum-200 dark:border-gray-700 text-plum-900 dark:text-gray-300 hover:border-plum-900 dark:hover:border-white font-medium py-3 px-6 rounded-xl transition-all active:scale-95">
                 Back to Projects
               </Link>
             </div>
@@ -163,19 +163,19 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ slug: 
         </div>
 
         {others.length > 0 && (
-          <div className="bg-gray-50 dark:bg-gray-900 border-t border-gray-100 dark:border-gray-800 py-16 px-6">
+          <div className="bg-plum-50/30 dark:bg-gray-900/60 border-t border-plum-100 dark:border-gray-800 py-16 px-6">
             <div className="max-w-6xl mx-auto">
-              <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-8">More Projects</h2>
+              <h2 className="text-2xl font-bold text-plum-900 dark:text-white mb-8">More Projects</h2>
               <div className="grid sm:grid-cols-3 gap-6">
                 {others.map((p) => (
-                  <Link key={p.slug} href={`/projects/${p.slug}`} className="group block overflow-hidden rounded-2xl bg-white dark:bg-gray-950 border border-gray-100 dark:border-gray-800 hover:shadow-lg transition-all">
+                  <Link key={p.slug} href={`/projects/${p.slug}`} className="group block overflow-hidden rounded-2xl bg-white dark:bg-gray-950 border border-gray-100 dark:border-gray-800 hover:border-terracotta-400/50 hover:shadow-lg transition-all">
                     <div className="relative aspect-[4/3] overflow-hidden">
                       <Image src={p.src} alt={p.title} fill sizes="(max-width: 640px) 100vw, 33vw" className="object-cover group-hover:scale-105 transition-transform duration-500" />
                     </div>
                     <div className="p-4">
-                      <span className="text-xs text-blue-600 dark:text-blue-400 uppercase tracking-widest">{p.category}</span>
-                      <h3 className="font-semibold text-gray-900 dark:text-white mt-1">{p.title}</h3>
-                      <p className="text-gray-500 dark:text-gray-400 text-sm mt-1">{p.location}</p>
+                      <span className="text-xs text-terracotta-600 dark:text-terracotta-400 uppercase tracking-widest font-semibold">{p.category}</span>
+                      <h3 className="font-semibold text-plum-900 dark:text-white mt-1">{p.title}</h3>
+                      <p className="text-gray-600 dark:text-gray-400 text-sm mt-1">{p.location}</p>
                     </div>
                   </Link>
                 ))}

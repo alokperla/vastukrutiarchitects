@@ -1,4 +1,4 @@
-﻿import Image from "next/image";
+import Image from "next/image";
 import Link from "next/link";
 import Footer from "@/components/Footer";
 import type { Metadata } from "next";
@@ -48,10 +48,11 @@ export default function ServicesPage() {
     <>
       <main className="min-h-screen bg-white dark:bg-gray-950 pt-20">
         {/* Banner */}
-        <div className="bg-gray-950 py-20 text-center">
-          <p className="text-xs uppercase tracking-[0.3em] text-blue-400 font-medium mb-3">What We Offer</p>
+        <div className="bg-plum-950 py-20 text-center relative overflow-hidden">
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-terracotta-900/20 via-transparent to-transparent pointer-events-none" />
+          <p className="text-xs uppercase tracking-[0.3em] text-terracotta-400 font-semibold mb-3">What We Offer</p>
           <h1 className="text-4xl md:text-6xl font-bold text-white">Our Services</h1>
-          <p className="text-gray-400 mt-4 max-w-lg mx-auto text-sm leading-relaxed">
+          <p className="text-gray-300 mt-4 max-w-lg mx-auto text-sm leading-relaxed">
             From concept sketches to completed spaces, we offer a full range of architectural and interior design services.
           </p>
         </div>
@@ -61,25 +62,25 @@ export default function ServicesPage() {
           {services.map((s, i) => (
             <div key={s.title} className={`grid md:grid-cols-2 gap-12 items-center ${i % 2 === 1 ? "md:grid-flow-col-dense" : ""}`}>
               <div className={i % 2 === 1 ? "md:col-start-2" : ""}>
-                <p className="text-sm uppercase tracking-[0.3em] text-blue-600 dark:text-blue-400 font-medium mb-2">{s.subtitle}</p>
-                <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-5">{s.title}</h2>
+                <p className="text-xs uppercase tracking-[0.3em] text-terracotta-600 dark:text-terracotta-400 font-semibold mb-2">{s.subtitle}</p>
+                <h2 className="text-3xl md:text-4xl font-bold text-plum-900 dark:text-white mb-5">{s.title}</h2>
                 <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-6">{s.desc}</p>
                 <ul className="grid grid-cols-2 gap-2 mb-8">
                   {s.features.map((f) => (
-                    <li key={f} className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
-                      <div className="w-1.5 h-1.5 rounded-full bg-blue-500 flex-shrink-0" />
+                    <li key={f} className="flex items-center gap-2 text-sm text-plum-900/80 dark:text-gray-300">
+                      <div className="w-1.5 h-1.5 rounded-full bg-terracotta-600 flex-shrink-0" />
                       {f}
                     </li>
                   ))}
                 </ul>
-                <Link href="/contact" className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-500 text-white font-semibold py-3 px-6 rounded-full transition-all hover:scale-105">
+                <Link href="/contact" className="inline-flex items-center gap-2 bg-terracotta-600 hover:bg-terracotta-700 text-white font-semibold py-3 px-6 rounded-full transition-all hover:scale-105 shadow-md shadow-terracotta-600/20 active:scale-95">
                   Get a Quote
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                   </svg>
                 </Link>
               </div>
-              <div className={`relative aspect-[4/3] rounded-2xl overflow-hidden ${i % 2 === 1 ? "md:col-start-1" : ""}`}>
+              <div className={`relative aspect-[4/3] rounded-2xl overflow-hidden border border-gray-100 dark:border-gray-800 shadow-md ${i % 2 === 1 ? "md:col-start-1" : ""}`}>
                 <Image src={s.img} alt={s.imgAlt} fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover" />
               </div>
             </div>
@@ -87,10 +88,10 @@ export default function ServicesPage() {
         </div>
 
         {/* CTA */}
-        <div className="bg-gray-950 py-20 px-6 text-center">
+        <div className="bg-plum-950 py-20 px-6 text-center">
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Not sure where to start?</h2>
-          <p className="text-gray-400 mb-8 max-w-md mx-auto">Every project starts with a conversation. Get in touch and we will help you figure out what you need.</p>
-          <Link href="/contact" className="inline-block bg-white hover:bg-gray-100 text-gray-900 font-semibold py-4 px-8 rounded-full transition-all hover:scale-105">
+          <p className="text-gray-300 mb-8 max-w-md mx-auto">Every project starts with a conversation. Get in touch and we will help you figure out what you need.</p>
+          <Link href="/contact" className="inline-block bg-terracotta-600 hover:bg-terracotta-700 text-white font-semibold py-4 px-8 rounded-full transition-all hover:scale-105 shadow-lg shadow-terracotta-900/30 active:scale-95">
             Start a Conversation
           </Link>
         </div>

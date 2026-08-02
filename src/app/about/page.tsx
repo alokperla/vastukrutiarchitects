@@ -1,4 +1,4 @@
-﻿import Image from "next/image";
+import Image from "next/image";
 import Link from "next/link";
 import Footer from "@/components/Footer";
 import type { Metadata } from "next";
@@ -27,9 +27,9 @@ export default function AboutPage() {
           className="object-cover object-center"
           priority
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/40 to-black/70 flex items-center justify-center">
+        <div className="absolute inset-0 bg-gradient-to-b from-plum-950/70 via-plum-950/40 to-plum-950/80 flex items-center justify-center">
           <div className="text-center">
-            <p className="text-xs uppercase tracking-[0.3em] text-blue-400 font-medium mb-3">Our Story</p>
+            <p className="text-xs uppercase tracking-[0.3em] text-terracotta-400 font-semibold mb-3">Our Story</p>
             <h1 className="text-4xl md:text-6xl font-bold text-white">About Us</h1>
           </div>
         </div>
@@ -39,11 +39,11 @@ export default function AboutPage() {
       <section className="py-20 px-6">
         <div className="max-w-4xl mx-auto grid md:grid-cols-5 gap-12 items-start">
           <div className="md:col-span-3">
-            <p className="text-sm uppercase tracking-[0.3em] text-blue-600 dark:text-blue-400 font-medium mb-4">Who We Are</p>
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-6">
+            <p className="text-xs uppercase tracking-[0.3em] text-terracotta-600 dark:text-terracotta-400 font-semibold mb-3">Who We Are</p>
+            <h2 className="text-3xl md:text-4xl font-bold text-plum-900 dark:text-white mb-6">
               Architects who care about more than buildings
             </h2>
-            <div className="prose prose-gray dark:prose-invert text-gray-600 dark:text-gray-400 space-y-4 leading-relaxed">
+            <div className="prose prose-gray dark:prose-invert text-gray-700 dark:text-gray-300 space-y-4 leading-relaxed">
               <p>
                 Vastukruti Architects was founded on a singular belief: that great architecture has the power to transform daily life. Grounded in the rich design traditions of India and informed by contemporary practice, we create spaces that are as meaningful as they are beautiful.
               </p>
@@ -62,9 +62,9 @@ export default function AboutPage() {
               { v: "2",   l: "Design Disciplines" },
               { v: "100%",l: "Client Satisfaction" },
             ].map((s) => (
-              <div key={s.l} className="bg-gray-50 dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-2xl p-6 text-center">
-                <div className="text-3xl font-bold text-gray-900 dark:text-white mb-1">{s.v}</div>
-                <div className="text-sm text-gray-500 dark:text-gray-400">{s.l}</div>
+              <div key={s.l} className="bg-plum-50/50 dark:bg-gray-900 border border-plum-100 dark:border-gray-800 rounded-2xl p-6 text-center hover:border-terracotta-400/40 transition-all">
+                <div className="text-3xl font-bold text-plum-900 dark:text-white mb-1">{s.v}</div>
+                <div className="text-sm text-gray-600 dark:text-gray-400 font-medium">{s.l}</div>
               </div>
             ))}
           </div>
@@ -72,20 +72,20 @@ export default function AboutPage() {
       </section>
 
       {/* Values */}
-      <section className="py-20 px-6 bg-gray-50 dark:bg-gray-900">
+      <section className="py-20 px-6 bg-plum-50/40 dark:bg-gray-900/60">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-14">
-            <p className="text-sm uppercase tracking-[0.3em] text-blue-600 dark:text-blue-400 font-medium mb-4">What Guides Us</p>
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white">Our Values</h2>
+            <p className="text-xs uppercase tracking-[0.3em] text-terracotta-600 dark:text-terracotta-400 font-semibold mb-3">What Guides Us</p>
+            <h2 className="text-3xl md:text-4xl font-bold text-plum-900 dark:text-white">Our Values</h2>
           </div>
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {values.map((v, i) => (
-              <div key={v.title} className="bg-white dark:bg-gray-950 rounded-2xl p-8 border border-gray-100 dark:border-gray-800 hover:shadow-lg transition-shadow">
-                <div className="w-10 h-10 rounded-xl bg-blue-50 dark:bg-blue-950 text-blue-600 dark:text-blue-400 flex items-center justify-center font-bold text-sm mb-5">
+              <div key={v.title} className="bg-white dark:bg-gray-950 rounded-2xl p-8 border border-gray-100 dark:border-gray-800 hover:border-terracotta-300 dark:hover:border-terracotta-800 hover:shadow-lg transition-all">
+                <div className="w-10 h-10 rounded-xl bg-terracotta-50 dark:bg-terracotta-950/60 text-terracotta-600 dark:text-terracotta-400 flex items-center justify-center font-bold text-sm mb-5 shadow-sm">
                   0{i + 1}
                 </div>
-                <h3 className="font-bold text-gray-900 dark:text-white mb-2 text-lg">{v.title}</h3>
-                <p className="text-gray-500 dark:text-gray-400 text-sm leading-relaxed">{v.desc}</p>
+                <h3 className="font-bold text-plum-900 dark:text-white mb-2 text-lg">{v.title}</h3>
+                <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">{v.desc}</p>
               </div>
             ))}
           </div>
@@ -94,17 +94,17 @@ export default function AboutPage() {
 
       {/* CTA */}
       <section className="py-20 px-6 text-center bg-white dark:bg-gray-950">
-        <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+        <h2 className="text-3xl md:text-4xl font-bold text-plum-900 dark:text-white mb-4">
           Ready to start a project?
         </h2>
-        <p className="text-gray-500 dark:text-gray-400 mb-8 max-w-md mx-auto">
+        <p className="text-gray-600 dark:text-gray-400 mb-8 max-w-md mx-auto">
           We would love to hear your vision. Get in touch and let us bring it to life.
         </p>
         <div className="flex gap-4 justify-center flex-wrap">
-          <Link href="/contact" className="bg-blue-600 hover:bg-blue-500 text-white font-semibold py-4 px-8 rounded-full transition-all hover:scale-105 shadow-lg shadow-blue-900/20">
+          <Link href="/contact" className="bg-terracotta-600 hover:bg-terracotta-700 text-white font-semibold py-4 px-8 rounded-full transition-all hover:scale-105 shadow-lg shadow-terracotta-600/20 active:scale-95">
             Get in Touch
           </Link>
-          <Link href="/projects" className="border border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:border-gray-900 dark:hover:border-gray-400 font-medium py-4 px-8 rounded-full transition-all">
+          <Link href="/projects" className="border border-plum-200 dark:border-gray-700 text-plum-900 dark:text-gray-300 hover:border-plum-900 dark:hover:border-white font-medium py-4 px-8 rounded-full transition-all active:scale-95">
             View Projects
           </Link>
         </div>

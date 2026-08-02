@@ -68,12 +68,12 @@ export default function ProjectsPage() {
     <>
       <main className="min-h-screen bg-white dark:bg-gray-950 pt-20">
         {/* Hero */}
-        <div className="relative h-64 md:h-80 flex items-center justify-center bg-gray-950 overflow-hidden">
-          <Image src="/projects/residentail interior 1.2.png" alt="Projects" fill priority sizes="100vw" className="object-cover object-center opacity-40" />
+        <div className="relative h-64 md:h-80 flex items-center justify-center bg-plum-950 overflow-hidden">
+          <Image src="/projects/residentail interior 1.2.png" alt="Projects" fill priority sizes="100vw" className="object-cover object-center opacity-30" />
           <div className="relative z-10 text-center px-4">
-            <p className="text-xs uppercase tracking-[0.3em] text-blue-400 font-medium mb-3">Portfolio</p>
+            <p className="text-xs uppercase tracking-[0.3em] text-terracotta-400 font-semibold mb-3">Portfolio</p>
             <h1 className="text-4xl md:text-6xl font-bold text-white">Our Projects</h1>
-            <p className="text-gray-400 mt-3 max-w-md mx-auto text-sm">Every space tells a story. Here are some of ours.</p>
+            <p className="text-gray-300 mt-3 max-w-md mx-auto text-sm leading-relaxed">Every space tells a story. Here are some of ours.</p>
           </div>
         </div>
 
@@ -82,9 +82,9 @@ export default function ProjectsPage() {
           <div className="flex gap-3 justify-center mb-12 flex-wrap">
             {categories.map((c) => (
               <button key={c} onClick={() => { setActive(c); setLightboxIdx(null); }}
-                className={`px-6 py-2.5 rounded-full text-sm font-medium transition-all border ${active === c ? "bg-blue-600 text-white border-blue-600 shadow-lg shadow-blue-900/20" : "text-gray-500 dark:text-gray-400 border-gray-200 dark:border-gray-700 hover:border-blue-400 hover:text-blue-600 dark:hover:text-blue-400"}`}>
+                className={`px-6 py-2.5 rounded-full text-sm font-semibold transition-all border ${active === c ? "bg-terracotta-600 text-white border-terracotta-600 shadow-md shadow-terracotta-600/20" : "text-plum-900/80 dark:text-gray-400 border-gray-200 dark:border-gray-800 hover:border-terracotta-400 hover:text-terracotta-600 dark:hover:text-terracotta-400"}`}>
                 {c}
-                <span className={`ml-2 text-xs px-1.5 py-0.5 rounded-full ${active === c ? "bg-white/20" : "bg-gray-100 dark:bg-gray-800"}`}>
+                <span className={`ml-2 text-xs px-1.5 py-0.5 rounded-full ${active === c ? "bg-white/20" : "bg-plum-50 dark:bg-gray-800"}`}>
                   {c === "All" ? allProjectsList.length : allProjectsList.filter(p => p.category === c).length}
                 </span>
               </button>
@@ -94,20 +94,20 @@ export default function ProjectsPage() {
           {/* Masonry grid */}
           <div className="columns-1 sm:columns-2 lg:columns-3 gap-6 space-y-6">
             {filtered.map((p, i) => (
-              <div key={`${p.slug}-${i}`} className="break-inside-avoid group relative block overflow-hidden rounded-2xl bg-gray-100 dark:bg-gray-900">
+              <div key={`${p.slug}-${i}`} className="break-inside-avoid group relative block overflow-hidden rounded-2xl bg-gray-100 dark:bg-gray-900 border border-gray-100 dark:border-gray-800 hover:border-terracotta-500/50 transition-all">
                 <Link href={`/projects/${p.slug}`}>
                   <Image src={p.src} alt={p.title} width={600} height={450} sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw" className="w-full object-cover transition-transform duration-500 group-hover:scale-105" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-plum-950/85 via-plum-950/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                   <div className="absolute bottom-0 left-0 right-0 p-5 translate-y-3 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-300">
-                    <span className="text-xs text-blue-300 uppercase tracking-widest font-medium">{p.category}</span>
+                    <span className="text-xs text-terracotta-300 uppercase tracking-widest font-semibold">{p.category}</span>
                     <h3 className="text-white font-semibold text-base mt-1">{p.title}</h3>
-                    <p className="text-white/60 text-xs mt-1">{p.location} &bull; {p.year}</p>
+                    <p className="text-white/70 text-xs mt-1">{p.location} &bull; {p.year}</p>
                   </div>
                 </Link>
                 {/* Quick-view button */}
                 <button
                   onClick={() => setLightboxIdx(i)}
-                  className="absolute top-3 right-3 w-9 h-9 bg-black/40 hover:bg-black/60 backdrop-blur-sm rounded-full flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-all"
+                  className="absolute top-3 right-3 w-9 h-9 bg-plum-950/60 hover:bg-terracotta-600 backdrop-blur-sm rounded-full flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-all shadow-md"
                   aria-label="Quick view"
                 >
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -124,21 +124,21 @@ export default function ProjectsPage() {
 
       {/* Lightbox */}
       {lbProject && (
-        <div className="fixed inset-0 z-50 bg-black/95 flex items-center justify-center" onClick={closeLightbox}>
-          <button onClick={closeLightbox} className="absolute top-5 right-5 z-10 bg-white/10 hover:bg-white/20 rounded-full p-3 text-white" aria-label="Close">
+        <div className="fixed inset-0 z-50 bg-plum-950/95 backdrop-blur-md flex items-center justify-center" onClick={closeLightbox}>
+          <button onClick={closeLightbox} className="absolute top-5 right-5 z-10 bg-white/10 hover:bg-terracotta-600 rounded-full p-3 text-white transition-colors" aria-label="Close">
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
           </button>
-          <div className="absolute top-5 left-5 z-10 text-white/60 text-sm font-medium">{(lightboxIdx ?? 0) + 1} / {filtered.length}</div>
-          <button onClick={(e) => { e.stopPropagation(); prev(); }} className="absolute left-4 top-1/2 -translate-y-1/2 z-10 bg-white/10 hover:bg-white/20 rounded-full p-3 text-white" aria-label="Previous">
+          <div className="absolute top-5 left-5 z-10 text-white/70 text-sm font-medium">{(lightboxIdx ?? 0) + 1} / {filtered.length}</div>
+          <button onClick={(e) => { e.stopPropagation(); prev(); }} className="absolute left-4 top-1/2 -translate-y-1/2 z-10 bg-white/10 hover:bg-terracotta-600 rounded-full p-3 text-white transition-colors" aria-label="Previous">
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" /></svg>
           </button>
           <div className="relative max-w-5xl w-full mx-16 max-h-[85vh]" onClick={(e) => e.stopPropagation()}>
-            <Image src={lbProject.src} alt={lbProject.title} width={1200} height={900} sizes="90vw" className="w-full h-auto max-h-[70vh] object-contain rounded-xl" />
+            <Image src={lbProject.src} alt={lbProject.title} width={1200} height={900} sizes="90vw" className="w-full h-auto max-h-[70vh] object-contain rounded-xl shadow-2xl" />
             <div className="mt-4 text-center">
-              <span className="text-xs text-blue-400 uppercase tracking-widest font-medium">{lbProject.category}</span>
+              <span className="text-xs text-terracotta-400 uppercase tracking-widest font-semibold">{lbProject.category}</span>
               <h3 className="text-white font-bold text-xl mt-1">{lbProject.title}</h3>
-              <p className="text-gray-400 text-sm mt-1">{lbProject.location} &bull; {lbProject.year}</p>
-              <Link href={`/projects/${lbProject.slug}`} onClick={closeLightbox} className="inline-block mt-4 text-blue-400 hover:text-blue-300 text-sm font-medium underline underline-offset-4">
+              <p className="text-gray-300 text-sm mt-1">{lbProject.location} &bull; {lbProject.year}</p>
+              <Link href={`/projects/${lbProject.slug}`} onClick={closeLightbox} className="inline-block mt-4 text-terracotta-400 hover:text-terracotta-300 text-sm font-semibold underline underline-offset-4">
                 View Full Project
               </Link>
             </div>

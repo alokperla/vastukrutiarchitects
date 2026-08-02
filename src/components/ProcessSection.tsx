@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 const steps = [
   {
@@ -25,7 +25,7 @@ const steps = [
 
 export default function ProcessSection() {
   return (
-    <section className="py-24 px-6 bg-gray-950 relative overflow-hidden">
+    <section className="py-24 px-6 bg-plum-950 relative overflow-hidden">
       {/* subtle grid pattern */}
       <div
         className="absolute inset-0 opacity-5"
@@ -36,21 +36,21 @@ export default function ProcessSection() {
       />
       <div className="relative max-w-6xl mx-auto">
         <div className="text-center mb-16">
-          <p className="text-sm uppercase tracking-[0.3em] text-blue-400 font-medium mb-4">How We Work</p>
+          <p className="text-xs sm:text-sm uppercase tracking-[0.3em] text-terracotta-400 font-semibold mb-3">How We Work</p>
           <h2 className="text-4xl md:text-5xl font-bold text-white">Our Process</h2>
         </div>
 
         <div className="grid gap-0 md:grid-cols-4 relative">
           {/* connector line */}
-          <div className="hidden md:block absolute top-10 left-[12.5%] right-[12.5%] h-px bg-gradient-to-r from-transparent via-blue-800 to-transparent" />
+          <div className="hidden md:block absolute top-10 left-[12.5%] right-[12.5%] h-px bg-gradient-to-r from-transparent via-terracotta-600/50 to-transparent" />
 
-          {steps.map((s, i) => (
+          {steps.map((s) => (
             <div key={s.number} className="flex flex-col items-center text-center p-6 relative">
-              <div className="w-20 h-20 rounded-full bg-blue-600/20 border border-blue-600/40 flex items-center justify-center mb-6 relative z-10">
-                <span className="text-blue-400 font-bold text-lg tracking-wider">{s.number}</span>
+              <div className="w-20 h-20 rounded-full bg-terracotta-600/20 border border-terracotta-500/50 flex items-center justify-center mb-6 relative z-10 shadow-lg shadow-terracotta-950/50">
+                <span className="text-terracotta-400 font-bold text-lg tracking-wider">{s.number}</span>
               </div>
               <h3 className="text-white font-bold text-lg mb-3">{s.title}</h3>
-              <p className="text-gray-400 text-sm leading-relaxed">{s.desc}</p>
+              <p className="text-gray-300 text-sm leading-relaxed">{s.desc}</p>
             </div>
           ))}
         </div>

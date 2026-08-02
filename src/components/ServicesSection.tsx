@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 const services = [
   {
@@ -36,23 +36,25 @@ const services = [
 
 export default function ServicesSection() {
   return (
-    <section className="py-24 px-6 bg-gray-50 dark:bg-gray-900">
+    <section className="py-24 px-6 bg-plum-50/40 dark:bg-gray-900/60">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-16">
-          <p className="text-sm uppercase tracking-[0.3em] text-blue-600 dark:text-blue-400 font-medium mb-4">What We Do</p>
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white">Our Services</h2>
+          <p className="text-xs sm:text-sm uppercase tracking-[0.3em] text-terracotta-600 dark:text-terracotta-400 font-semibold mb-3">
+            What We Do
+          </p>
+          <h2 className="text-4xl md:text-5xl font-bold text-plum-900 dark:text-white">Our Services</h2>
         </div>
         <div className="grid gap-8 md:grid-cols-3">
-          {services.map((s, i) => (
+          {services.map((s) => (
             <div
               key={s.title}
-              className="group p-8 bg-white dark:bg-gray-950 rounded-2xl border border-gray-100 dark:border-gray-800 hover:border-blue-200 dark:hover:border-blue-900 hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
+              className="group p-8 bg-white dark:bg-gray-950 rounded-2xl border border-gray-100 dark:border-gray-800 hover:border-terracotta-300 dark:hover:border-terracotta-800 hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
             >
-              <div className="w-16 h-16 flex items-center justify-center bg-blue-50 dark:bg-blue-950 text-blue-600 dark:text-blue-400 rounded-xl mb-6 group-hover:scale-110 transition-transform duration-300">
+              <div className="w-16 h-16 flex items-center justify-center bg-terracotta-50 dark:bg-terracotta-950/60 text-terracotta-600 dark:text-terracotta-400 rounded-xl mb-6 group-hover:scale-110 group-hover:bg-terracotta-600 group-hover:text-white transition-all duration-300 shadow-sm">
                 {s.icon}
               </div>
-              <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">{s.title}</h3>
-              <p className="text-gray-500 dark:text-gray-400 leading-relaxed text-sm">{s.desc}</p>
+              <h3 className="text-xl font-bold text-plum-900 dark:text-white mb-3">{s.title}</h3>
+              <p className="text-gray-600 dark:text-gray-400 leading-relaxed text-sm">{s.desc}</p>
             </div>
           ))}
         </div>

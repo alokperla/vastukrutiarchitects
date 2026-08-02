@@ -1,15 +1,15 @@
-﻿"use client";
+"use client";
 
 import { useCountUp } from "@/lib/useCountUp";
 
 function Stat({ target, suffix, label }: { target: number; suffix: string; label: string }) {
   const { count, ref } = useCountUp(target);
   return (
-    <div ref={ref as React.RefObject<HTMLDivElement>} className="text-center p-8 bg-gray-50 dark:bg-gray-900 rounded-2xl border border-gray-100 dark:border-gray-800 hover:shadow-md transition-shadow">
-      <div className="text-5xl font-bold text-gray-900 dark:text-white mb-2 tabular-nums">
-        {count}{suffix}
+    <div ref={ref as React.RefObject<HTMLDivElement>} className="text-center p-8 bg-plum-50/50 dark:bg-gray-900/80 rounded-2xl border border-plum-100 dark:border-gray-800 hover:shadow-md hover:border-terracotta-400/40 transition-all">
+      <div className="text-5xl font-bold text-plum-900 dark:text-white mb-2 tabular-nums">
+        {count}<span className="text-terracotta-600 dark:text-terracotta-400">{suffix}</span>
       </div>
-      <div className="text-sm text-gray-500 dark:text-gray-400">{label}</div>
+      <div className="text-sm text-gray-600 dark:text-gray-400 font-medium">{label}</div>
     </div>
   );
 }
