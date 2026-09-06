@@ -1,4 +1,4 @@
-﻿import type { Metadata } from "next";
+import type { Metadata } from "next";
 import { Playfair_Display, DM_Sans } from "next/font/google";
 import "./globals.css";
 import ThemeProvider from "@/components/ThemeProvider";
@@ -43,6 +43,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
+      data-scroll-behavior="smooth"
       className={cn("h-full antialiased scroll-smooth", playfair.variable, dmSans.variable)}
     >
       <body className="flex flex-col min-h-screen font-sans bg-white dark:bg-gray-950 text-gray-900 dark:text-white">

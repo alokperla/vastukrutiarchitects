@@ -26,20 +26,34 @@ model AdminUser {
 }
 
 model ProjectEntry {
-  id          Int      @id @default(autoincrement())
-  slug        String   @unique
-  title       String
-  category    String
-  description String
-  year        String
-  location    String
-  area        String
-  coverImage  String
-  gallery     String[] @default([])
-  scope       String[] @default([])
-  published   Boolean  @default(true)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id           Int      @id @default(autoincrement())
+  slug         String   @unique
+  title        String
+  category     String
+  description  String
+  year         String
+  location     String
+  area         String
+  coverImage   String
+  coverCaption String?  @default("")
+  videoUrl     String?  @default("")
+  youtubeUrls  String[] @default([])
+  gallery      String[] @default([])
+  scope        String[] @default([])
+  published    Boolean  @default(true)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model TeamMember {
+  id        Int      @id @default(autoincrement())
+  name      String
+  role      String
+  bio       String
+  photo     String
+  order     Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model SiteSettings {
@@ -49,3 +63,4 @@ model SiteSettings {
   instagram String @default("")
   aboutText String @default("")
 }
+

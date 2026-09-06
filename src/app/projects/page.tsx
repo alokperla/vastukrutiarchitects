@@ -6,7 +6,7 @@ import Footer from "@/components/Footer";
 import { projects as staticProjects, Project } from "@/lib/projects";
 import { useState, useCallback, useEffect } from "react";
 
-const categories = ["All", "Interior", "Architecture", "Commercial"];
+const categories = ["All", "Interior", "Architecture", "Commercial", "3D visualization"];
 
 export default function ProjectsPage() {
   const [active, setActive] = useState("All");

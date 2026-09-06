@@ -11,6 +11,8 @@ const projectSchema = z.object({
   location: z.string().default("India"),
   area: z.string().default("N/A"),
   coverImage: z.string().min(1, "Cover image is required"),
+  coverCaption: z.string().optional().default(""),
+  videoUrl: z.string().optional().default(""),
   gallery: z.array(z.string()).default([]),
   scope: z.array(z.string()).default([]),
   published: z.boolean().default(true),
