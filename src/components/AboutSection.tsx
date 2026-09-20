@@ -7,9 +7,9 @@ export default function AboutSection() {
   const ref2 = useReveal();
 
   const stats = [
-    { value: "50+", label: "Projects Delivered" },
-    { value: "8+",  label: "Years of Experience" },
-    { value: "100%",label: "Client Satisfaction" },
+    { value: "30+", label: "Projects Delivered" },
+    { value: "6+", label: "Years of Experience" },
+    { value: "100%", label: "Client Satisfaction" },
   ];
 
   return (

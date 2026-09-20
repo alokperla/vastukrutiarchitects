@@ -10,12 +10,20 @@ export const metadata: Metadata = {
 
 const services = [
   {
-    title: "Residential Design",
-    subtitle: "Your home, reimagined",
-    desc: "From concept to completion, we design homes that reflect your personality and lifestyle. Every detail — from spatial planning to material selection — is considered with care. We work with you at every stage to ensure the final result exceeds expectations.",
-    features: ["Site Analysis", "Space Planning", "3D Visualisation", "Material & Finish Specification", "Construction Oversight", "Post-Completion Support"],
-    img: "/projects/residentail interior 1.2.png",
-    imgAlt: "Residential interior design",
+    title: "Interior",
+    subtitle: "The art of the detail",
+    desc: "For spaces that need thoughtful transformation, our interior design and styling service brings cohesion and beauty through furniture curation, bespoke joinery, colour consultation, and tactile material harmony.",
+    features: ["Colour Consultation", "Furniture Selection", "Art & Accessory Curation", "Soft Furnishings", "Bespoke Joinery", "Space Planning"],
+    img: "/projects/residentail interior 1.6.jpg",
+    imgAlt: "Interior design and styling",
+  },
+  {
+    title: "Architectural Design",
+    subtitle: "Buildings that endure",
+    desc: "Our architectural services cover everything from initial feasibility to final completion — including structural coordination, regulatory approvals, and project management throughout the build.",
+    features: ["Feasibility Studies", "Architectural Drawings", "Structural Coordination", "Regulatory Approvals", "Contractor Management", "Quality Assurance"],
+    img: "/projects/residentail project 2.1.jpg",
+    imgAlt: "Architectural design",
   },
   {
     title: "Commercial Spaces",
@@ -24,22 +32,6 @@ const services = [
     features: ["Brand Alignment", "Workflow Optimisation", "Ergonomic Planning", "Lighting Design", "Signage & Wayfinding", "Phased Implementation"],
     img: "/projects/residentail project 2.jpg",
     imgAlt: "Commercial architecture",
-  },
-  {
-    title: "Interior Styling",
-    subtitle: "The art of the detail",
-    desc: "For spaces that need a refresh rather than a rebuild, our interior styling service brings cohesion and beauty through furniture selection, colour consulting, art curation, and accessorising.",
-    features: ["Colour Consultation", "Furniture Selection", "Art & Accessory Curation", "Soft Furnishings", "Declutter & Reorganise", "Photography Ready"],
-    img: "/projects/residentail interior 1.6.jpg",
-    imgAlt: "Interior styling",
-  },
-  {
-    title: "Architecture & Structure",
-    subtitle: "Buildings that endure",
-    desc: "Our architectural services cover everything from initial feasibility to final completion — including structural design, regulatory approvals, and project management throughout the build.",
-    features: ["Feasibility Studies", "Architectural Drawings", "Structural Coordination", "Regulatory Approvals", "Contractor Management", "Quality Assurance"],
-    img: "/projects/residentail project 2.1.jpg",
-    imgAlt: "Architecture and structure",
   },
 ];
 
@@ -51,8 +43,8 @@ export default function ServicesPage() {
         <div className="bg-plum-950 py-20 text-center relative overflow-hidden">
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-terracotta-900/20 via-transparent to-transparent pointer-events-none" />
           <p className="text-xs uppercase tracking-[0.3em] text-terracotta-400 font-semibold mb-3">What We Offer</p>
-          <h1 className="text-4xl md:text-6xl font-bold text-white">Our Services</h1>
-          <p className="text-gray-300 mt-4 max-w-lg mx-auto text-sm leading-relaxed">
+          <h1 className="font-heading text-4xl md:text-6xl font-normal text-white">Our Services</h1>
+          <p className="text-gray-300 mt-4 max-w-lg mx-auto text-sm leading-relaxed font-light">
             From concept sketches to completed spaces, we offer a full range of architectural and interior design services.
           </p>
         </div>
@@ -63,7 +55,7 @@ export default function ServicesPage() {
             <div key={s.title} className={`grid md:grid-cols-2 gap-12 items-center ${i % 2 === 1 ? "md:grid-flow-col-dense" : ""}`}>
               <div className={i % 2 === 1 ? "md:col-start-2" : ""}>
                 <p className="text-xs uppercase tracking-[0.3em] text-terracotta-600 dark:text-terracotta-400 font-semibold mb-2">{s.subtitle}</p>
-                <h2 className="text-3xl md:text-4xl font-bold text-plum-900 dark:text-white mb-5">{s.title}</h2>
+                <h2 className="font-heading text-3xl md:text-4xl lg:text-[40px] font-normal text-plum-950 dark:text-stone-100 mb-5 leading-tight">{s.title}</h2>
                 <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-6">{s.desc}</p>
                 <ul className="grid grid-cols-2 gap-2 mb-8">
                   {s.features.map((f) => (
@@ -89,8 +81,8 @@ export default function ServicesPage() {
 
         {/* CTA */}
         <div className="bg-plum-950 py-20 px-6 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Not sure where to start?</h2>
-          <p className="text-gray-300 mb-8 max-w-md mx-auto">Every project starts with a conversation. Get in touch and we will help you figure out what you need.</p>
+          <h2 className="font-heading text-3xl md:text-5xl font-normal text-white mb-4">Not sure where to start?</h2>
+          <p className="text-gray-300 mb-8 max-w-md mx-auto font-light">Every project starts with a conversation. Get in touch and we will help you figure out what you need.</p>
           <Link href="/contact" className="inline-block bg-terracotta-600 hover:bg-terracotta-700 text-white font-semibold py-4 px-8 rounded-full transition-all hover:scale-105 shadow-lg shadow-terracotta-900/30 active:scale-95">
             Start a Conversation
           </Link>

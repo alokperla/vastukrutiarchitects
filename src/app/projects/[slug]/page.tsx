@@ -124,65 +124,92 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ slug: 
 
   return (
     <>
-      <main className="min-h-screen bg-white dark:bg-gray-950 pt-24 pb-20">
-        <div className="max-w-6xl mx-auto px-6">
+      <main className="min-h-screen bg-stone-50/40 dark:bg-gray-950 pt-24 pb-20 transition-colors duration-300">
+        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
           {/* Breadcrumbs Navigation */}
-          <nav className="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400 mb-8 uppercase tracking-widest">
-            <Link href="/" className="hover:text-terracotta-600 transition-colors">Home</Link>
-            <span>/</span>
-            <Link href="/projects" className="hover:text-terracotta-600 transition-colors">Projects</Link>
-            <span>/</span>
-            <span className="text-plum-900 dark:text-gray-200 font-semibold truncate max-w-xs">{project.title}</span>
+          <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-xs text-stone-500 dark:text-stone-400 mb-8 sm:mb-12 font-medium tracking-wide">
+            <Link href="/" className="hover:text-terracotta-600 dark:hover:text-terracotta-400 transition-colors uppercase">
+              Home
+            </Link>
+            <span className="text-stone-400 dark:text-stone-600 text-[10px]">&gt;</span>
+            <Link href="/projects" className="hover:text-terracotta-600 dark:hover:text-terracotta-400 transition-colors uppercase">
+              Projects
+            </Link>
+            <span className="text-stone-400 dark:text-stone-600 text-[10px]">&gt;</span>
+            <span className="text-plum-950 dark:text-stone-200 font-semibold truncate max-w-xs sm:max-w-md">
+              {project.title}
+            </span>
           </nav>
 
           {/* ========================================================================= */}
-          {/* 1. TOP: PROJECT DESCRIPTION / OVERVIEW                                    */}
+          {/* 1. 2-COLUMN SPLIT HEADER LAYOUT (Essajees Atelier Inspired)               */}
           {/* ========================================================================= */}
-          <section className="mb-14 pb-12 border-b border-plum-100/70 dark:border-gray-800">
-            <div className="flex flex-wrap items-center gap-3 mb-4">
-              <span className="bg-terracotta-50 dark:bg-terracotta-950/50 text-terracotta-700 dark:text-terracotta-300 text-xs uppercase tracking-widest px-3.5 py-1.5 rounded-full font-semibold border border-terracotta-200/60 dark:border-terracotta-800/40">
-                {project.category}
-              </span>
-              <span className="text-xs text-gray-400 dark:text-gray-500">
-                {project.location} &bull; {project.year}
-              </span>
-            </div>
+          <header className="mb-14 sm:mb-16 md:mb-20 pb-12 sm:pb-16 border-b border-stone-200/80 dark:border-stone-800/80">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start">
+              {/* Left Column: Primary Info & Narrative */}
+              <div className="lg:col-span-7 flex flex-col justify-start">
+                {/* Project Title: Large, elegant serif heading */}
+                <h1 className="font-heading text-4xl sm:text-5xl md:text-6xl lg:text-[62px] font-normal text-plum-950 dark:text-stone-100 tracking-tight leading-[1.12]">
+                  {project.title}
+                </h1>
 
-            <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-plum-900 dark:text-white tracking-tight mb-6">
-              {project.title}
-            </h1>
+                {/* Subtitle / Tagline: Clean sans-serif descriptive sentence directly under title */}
+                <p className="mt-4 sm:mt-5 text-base sm:text-lg lg:text-xl text-stone-600 dark:text-stone-300 font-light leading-relaxed">
+                  {project.area
+                    ? `Exploring scale, light, and bespoke material craftsmanship across ${project.area}.`
+                    : `A considered study in spatial balance and contemporary architectural design.`}
+                </p>
 
-            <div className="max-w-4xl">
-              <p className="text-lg md:text-xl text-gray-700 dark:text-gray-300 leading-relaxed font-light mb-8">
-                {project.desc}
-              </p>
+                {/* Narrative Summary Paragraph */}
+                <p className="mt-5 sm:mt-6 text-stone-600 dark:text-stone-400 text-sm sm:text-base leading-relaxed font-light">
+                  {project.desc}
+                </p>
+              </div>
 
-              {project.scope && project.scope.length > 0 && (
-                <div>
-                  <h3 className="text-xs uppercase tracking-widest text-terracotta-600 dark:text-terracotta-400 font-semibold mb-3">
-                    Scope of Architectural Work
-                  </h3>
-                  <div className="flex flex-wrap gap-2">
-                    {project.scope.map((item) => (
-                      <span
-                        key={item}
-                        className="px-3.5 py-1.5 bg-plum-50/70 dark:bg-gray-900 text-plum-900 dark:text-gray-200 text-xs sm:text-sm rounded-full font-medium border border-plum-100 dark:border-gray-800"
-                      >
-                        {item}
-                      </span>
-                    ))}
+              {/* Right Column: Metadata Sidebar Block with Desktop Vertical Divider */}
+              <div className="lg:col-span-5 lg:border-l lg:border-stone-200/80 dark:lg:border-stone-800/80 lg:pl-12 flex flex-col justify-start">
+                <div className="space-y-5 sm:space-y-6">
+                  {/* CATEGORY */}
+                  <div className="pb-4 sm:pb-5 border-b border-stone-200/60 dark:border-stone-800/60">
+                    <span className="block text-[11px] uppercase tracking-[0.25em] font-semibold text-stone-600 dark:text-stone-400 mb-1.5">
+                      Category
+                    </span>
+                    <span className="text-sm sm:text-base font-medium text-plum-950 dark:text-stone-100 uppercase tracking-wide">
+                      {project.category}
+                    </span>
                   </div>
+
+                  {/* YEAR */}
+                  <div className="pb-4 sm:pb-5 border-b border-stone-200/60 dark:border-stone-800/60">
+                    <span className="block text-[11px] uppercase tracking-[0.25em] font-semibold text-stone-600 dark:text-stone-400 mb-1.5">
+                      Year
+                    </span>
+                    <span className="text-sm sm:text-base font-medium text-plum-950 dark:text-stone-100 tracking-wide">
+                      {project.year}
+                    </span>
+                  </div>
+
+                  {/* BUILT AREA (if present) */}
+                  {project.area && (
+                    <div className="pb-4 sm:pb-5 border-b border-stone-200/60 dark:border-stone-800/60 last:border-b-0">
+                      <span className="block text-[11px] uppercase tracking-[0.25em] font-semibold text-stone-600 dark:text-stone-400 mb-1.5">
+                        Built Area
+                      </span>
+                      <span className="text-sm sm:text-base font-medium text-plum-950 dark:text-stone-100 tracking-wide">
+                        {project.area}
+                      </span>
+                    </div>
+                  )}
                 </div>
-              )}
+              </div>
             </div>
-          </section>
+          </header>
 
           {/* ========================================================================= */}
           {/* 2. COVER PHOTO SECTION                                                    */}
-          {/* Primary cover photo with accompanying caption directly underneath          */}
           {/* ========================================================================= */}
-          <section className="mb-16">
-            <div className="group relative w-full overflow-hidden rounded-3xl bg-gray-950 shadow-2xl border border-plum-100/60 dark:border-gray-800 flex items-center justify-center">
+          <section className="mb-14 sm:mb-18">
+            <div className="group relative w-full overflow-hidden rounded-2xl sm:rounded-3xl bg-stone-950 shadow-2xl border border-stone-200/60 dark:border-stone-800 flex items-center justify-center">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={project.src}
@@ -191,14 +218,34 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ slug: 
               />
             </div>
 
-            {/* Accompanying Cover Photo Caption / Short Description placed directly underneath */}
+            {/* Accompanying Cover Photo Caption */}
             <div className="mt-4 px-2 sm:px-4 flex items-start gap-3">
               <div className="w-1 h-5 bg-terracotta-500 rounded-full shrink-0 mt-0.5" />
-              <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400 font-light italic leading-relaxed">
+              <p className="text-xs sm:text-sm text-stone-500 dark:text-stone-400 font-light italic leading-relaxed">
                 {project.coverCaption
                   ? project.coverCaption
-                  : `Primary architectural visual of ${project.title} (${project.location}).`}
+                  : `Primary architectural visual of ${project.title}.`}
               </p>
+            </div>
+          </section>
+
+          {/* ========================================================================= */}
+          {/* 3. DETAILED PROJECT WRITE-UP / NARRATIVE                                  */}
+          {/* ========================================================================= */}
+          <section className="mb-16 sm:mb-20 py-10 sm:py-12 border-y border-stone-200/80 dark:border-stone-800/80">
+            <div className="max-w-4xl mx-auto">
+              <span className="text-xs uppercase tracking-[0.25em] text-terracotta-600 dark:text-terracotta-400 font-semibold block mb-3">
+                Architectural Narrative
+              </span>
+              <h3 className="font-heading text-2xl sm:text-3xl text-plum-950 dark:text-stone-100 font-normal leading-snug mb-6">
+                &ldquo;Every spatial choice was guided by an appreciation for light, refined proportions, and tactile craftsmanship.&rdquo;
+              </h3>
+              <div className="text-stone-600 dark:text-stone-300 font-light text-base sm:text-lg leading-relaxed space-y-4">
+                <p>{project.desc}</p>
+                <p>
+                  From concept ideation to handcrafted finishes, each surface and threshold was curated to balance everyday functionality with quiet architectural poetry.
+                </p>
+              </div>
             </div>
           </section>
 
@@ -277,65 +324,35 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ slug: 
           )}
 
           {/* ========================================================================= */}
-          {/* 5. FOOTER DETAILS                                                         */}
-          {/* Specifications, Metadata, Enquiry CTA, and Related Projects                */}
+          {/* 5. CONSULTATION CTA & RELATED PROJECTS                                     */}
           {/* ========================================================================= */}
-          <section className="pt-10 border-t border-plum-100 dark:border-gray-800">
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 items-start">
-              {/* Left 2 Cols: Project Specs */}
-              <div className="lg:col-span-2">
-                <h3 className="text-xs uppercase tracking-[0.25em] text-terracotta-600 dark:text-terracotta-400 font-semibold mb-4">
-                  Project Specifications
-                </h3>
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-                  {[
-                    { label: "Year Completed", value: project.year },
-                    { label: "Location", value: project.location },
-                    { label: "Built Area", value: project.area },
-                    { label: "Discipline", value: project.category },
-                  ].map((item) => (
-                    <div
-                      key={item.label}
-                      className="p-5 rounded-2xl bg-plum-50/40 dark:bg-gray-900/60 border border-plum-100/70 dark:border-gray-800"
-                    >
-                      <p className="text-[11px] uppercase tracking-widest text-gray-500 dark:text-gray-400 mb-1">
-                        {item.label}
-                      </p>
-                      <p className="text-base font-bold text-plum-900 dark:text-white">
-                        {item.value}
-                      </p>
-                    </div>
-                  ))}
-                </div>
+          <section className="pt-10 border-t border-stone-200/80 dark:border-stone-800/80">
+            {/* Consultation Action Banner */}
+            <div className="bg-plum-950 text-white rounded-2xl sm:rounded-3xl p-8 sm:p-12 shadow-xl flex flex-col lg:flex-row lg:items-center justify-between gap-8">
+              <div className="max-w-2xl">
+                <span className="text-xs uppercase tracking-[0.25em] text-terracotta-400 font-semibold">
+                  Inquire
+                </span>
+                <h4 className="font-heading text-2xl sm:text-3xl font-normal mt-2 text-white">
+                  Start a Project Like This
+                </h4>
+                <p className="text-stone-300 text-sm sm:text-base mt-2 font-light leading-relaxed">
+                  Have an upcoming residential or commercial commission? Speak directly with our architectural leadership to discuss your vision.
+                </p>
               </div>
-
-              {/* Right Col: Consultation Action */}
-              <div className="bg-plum-950 text-white rounded-3xl p-8 shadow-xl flex flex-col justify-between">
-                <div>
-                  <span className="text-xs uppercase tracking-widest text-terracotta-400 font-semibold">
-                    Inquire
-                  </span>
-                  <h4 className="text-xl font-bold mt-1 text-white">
-                    Start a Project Like This
-                  </h4>
-                  <p className="text-gray-300 text-xs sm:text-sm mt-2 leading-relaxed">
-                    Have an upcoming residential or commercial commission? Speak directly with our architectural leadership.
-                  </p>
-                </div>
-                <div className="mt-6 flex flex-col gap-3">
-                  <Link
-                    href="/contact"
-                    className="w-full text-center bg-terracotta-600 hover:bg-terracotta-700 text-white text-sm font-semibold py-3 px-6 rounded-xl transition-all hover:scale-[1.02] shadow-md shadow-terracotta-600/30"
-                  >
-                    Enquire About This Project
-                  </Link>
-                  <Link
-                    href="/projects"
-                    className="w-full text-center border border-white/20 hover:border-white text-white text-sm font-medium py-3 px-6 rounded-xl transition-all"
-                  >
-                    View All Projects
-                  </Link>
-                </div>
+              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 shrink-0">
+                <Link
+                  href="/contact"
+                  className="text-center bg-terracotta-600 hover:bg-terracotta-700 text-white text-xs font-semibold tracking-[0.2em] uppercase py-3.5 px-7 rounded-sm transition-all hover:scale-[1.02] shadow-md shadow-terracotta-600/30"
+                >
+                  Enquire About This Project
+                </Link>
+                <Link
+                  href="/projects"
+                  className="text-center border border-white/20 hover:border-white text-white text-xs font-medium tracking-[0.2em] uppercase py-3.5 px-7 rounded-sm transition-all"
+                >
+                  View All Projects
+                </Link>
               </div>
             </div>
 
@@ -383,7 +400,7 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ slug: 
                           {p.title}
                         </h4>
                         <p className="text-gray-500 text-xs mt-1">
-                          {p.location} &bull; {p.year}
+                          {p.year}
                         </p>
                       </div>
                     </Link>

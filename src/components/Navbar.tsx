@@ -6,7 +6,6 @@ import { usePathname } from "next/navigation";
 import { Sun, Moon, Menu, X } from "lucide-react";
 import { useTheme } from "@/components/ThemeProvider";
 import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
 
 export default function Navbar() {
   const { theme, setTheme } = useTheme();
@@ -113,52 +112,21 @@ export default function Navbar() {
             href="/"
             className="flex items-center justify-center group/logo focus:outline-none"
           >
-            {/* Framer Motion Entry Reveal & Tactile Hover State */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.92, y: -4 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              whileHover={{ scale: 1.04 }}
-              whileTap={{ scale: 0.98 }}
-              transition={{
-                duration: 0.8,
-                ease: [0.16, 1, 0.3, 1],
-                scale: { type: "spring", stiffness: 350, damping: 25 },
-              }}
-              style={{ willChange: "transform" }}
-              className="relative flex items-center justify-center p-2 rounded-xl"
-            >
-              <div className="relative h-12 sm:h-14 lg:h-[54px] xl:h-[58px] w-auto flex items-center justify-center">
-                <Image
-                  src="/brand/vastukruti_logo_transparent.png"
-                  alt="VastuKruti Architects"
-                  width={240}
-                  height={60}
-                  priority
-                  style={{ width: "auto", height: "auto" }}
-                  className={`max-h-12 sm:max-h-14 lg:max-h-[54px] xl:max-h-[58px] w-auto object-contain transition-all duration-500 ${
-                    isDarkOverlay
-                      ? "brightness-0 invert drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)] group-hover/logo:drop-shadow-[0_0_24px_rgba(255,255,255,0.42)]"
-                      : "dark:brightness-0 dark:invert drop-shadow-sm group-hover/logo:drop-shadow-[0_6px_22px_rgba(202,93,54,0.38)]"
-                  }`}
-                />
-
-                {/* Luxury Sheen / Shimmer Beam Sweep */}
-                <div className="absolute inset-0 pointer-events-none overflow-hidden rounded-lg">
-                  <motion.div
-                    className="w-1/2 h-full bg-gradient-to-r from-transparent via-white/45 dark:via-white/55 to-transparent skew-x-[-25deg] mix-blend-overlay opacity-60 group-hover/logo:opacity-100 transition-opacity duration-300"
-                    animate={{
-                      x: ["-200%", "280%"],
-                    }}
-                    transition={{
-                      repeat: Infinity,
-                      repeatDelay: 4.5,
-                      duration: 1.6,
-                      ease: "easeInOut",
-                    }}
-                  />
-                </div>
-              </div>
-            </motion.div>
+            <div className="relative flex items-center justify-center p-2 rounded-xl transition-transform duration-300 hover:scale-[1.04] active:scale-[0.98]">
+              <Image
+                src="/brand/vastukruti_logo_transparent.png"
+                alt="VastuKruti Architects"
+                width={240}
+                height={60}
+                priority
+                style={{ width: "auto", height: "auto" }}
+                className={`max-h-12 sm:max-h-14 lg:max-h-[54px] xl:max-h-[58px] w-auto object-contain transition-all duration-500 ${
+                  isDarkOverlay
+                    ? "brightness-0 invert drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)] group-hover/logo:drop-shadow-[0_0_24px_rgba(255,255,255,0.42)]"
+                    : "dark:brightness-0 dark:invert drop-shadow-sm group-hover/logo:drop-shadow-[0_6px_22px_rgba(202,93,54,0.38)]"
+                }`}
+              />
+            </div>
           </Link>
         </div>
 
@@ -276,12 +244,7 @@ export default function Navbar() {
           href="/"
           className="flex items-center shrink-0 group/mobile focus:outline-none"
         >
-          <motion.div
-            initial={{ opacity: 0, scale: 0.94 }}
-            animate={{ opacity: 1, scale: 1 }}
-            whileHover={{ scale: 1.03 }}
-            className="relative h-11 w-auto flex items-center justify-start overflow-hidden p-1 rounded-lg"
-          >
+          <div className="relative h-11 w-auto flex items-center justify-start overflow-hidden p-1 rounded-lg transition-transform duration-300 hover:scale-[1.03]">
             <Image
               src="/brand/vastukruti_logo_transparent.png"
               alt="VastuKruti Architects"
@@ -295,7 +258,7 @@ export default function Navbar() {
                   : "dark:brightness-0 dark:invert drop-shadow-sm"
               }`}
             />
-          </motion.div>
+          </div>
         </Link>
 
         {/* Mobile Action Controls */}

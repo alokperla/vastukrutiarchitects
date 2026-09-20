@@ -19,9 +19,8 @@ export default function Hero() {
 
       {/* Content */}
       <div className="relative z-10 text-center px-6 max-w-4xl mx-auto">
-        <p className="text-xs sm:text-sm uppercase tracking-[0.3em] text-terracotta-400 font-semibold mb-4 drop-shadow-sm">
-          Architecture &amp; Interior Design
-        </p>
+
+
         <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight">
           Spaces That{" "}
           <span className="text-terracotta-400 italic font-light">Inspire</span>

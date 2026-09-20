@@ -19,8 +19,8 @@ export default function StatsSection() {
     <section className="py-20 px-6 bg-white dark:bg-gray-950 border-t border-gray-100 dark:border-gray-800">
       <div className="max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-6">
         <Stat target={50} suffix="+" label="Projects Completed" />
-        <Stat target={8}  suffix="+"  label="Years of Experience" />
-        <Stat target={15} suffix="+"  label="Cities Served" />
+        <Stat target={8} suffix="+" label="Years of Experience" />
+        <Stat target={15} suffix="+" label="Cities Served" />
         <Stat target={100} suffix="%" label="Client Satisfaction" />
       </div>
     </section>
