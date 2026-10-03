@@ -9,7 +9,7 @@ export async function GET() {
         data: {
           id: 1,
           whatsapp: "919100010573",
-          email: "vastukrutiarchitects@gmail.com",
+          email: "vastukruti24@gmail.com",
           instagram: "https://www.instagram.com/vastu_kruti24",
           aboutText: "Vastukruti Architects crafts inspiring residential and commercial spaces that blend timeless tradition with modern innovation.",
         },

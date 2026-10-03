@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 const services = [
   {
-    title: "Interior",
+    title: "Interior Design",
     subtitle: "The art of the detail",
     desc: "For spaces that need thoughtful transformation, our interior design and styling service brings cohesion and beauty through furniture curation, bespoke joinery, colour consultation, and tactile material harmony.",
     features: ["Colour Consultation", "Furniture Selection", "Art & Accessory Curation", "Soft Furnishings", "Bespoke Joinery", "Space Planning"],
@@ -41,12 +41,22 @@ export default function ServicesPage() {
       <main className="min-h-screen bg-white dark:bg-gray-950 pt-20">
         {/* Banner */}
         <div className="bg-plum-950 py-20 text-center relative overflow-hidden">
+          {/* subtle grid pattern */}
+          <div
+            className="absolute inset-0 opacity-5 pointer-events-none"
+            style={{
+              backgroundImage: "linear-gradient(#ffffff 1px,transparent 1px),linear-gradient(90deg,#ffffff 1px,transparent 1px)",
+              backgroundSize: "60px 60px",
+            }}
+          />
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-terracotta-900/20 via-transparent to-transparent pointer-events-none" />
-          <p className="text-xs uppercase tracking-[0.3em] text-terracotta-400 font-semibold mb-3">What We Offer</p>
-          <h1 className="font-heading text-4xl md:text-6xl font-normal text-white">Our Services</h1>
-          <p className="text-gray-300 mt-4 max-w-lg mx-auto text-sm leading-relaxed font-light">
-            From concept sketches to completed spaces, we offer a full range of architectural and interior design services.
-          </p>
+          <div className="relative z-10 max-w-lg mx-auto px-4">
+            <p className="text-xs uppercase tracking-[0.3em] text-terracotta-400 font-semibold mb-3">What We Offer</p>
+            <h1 className="font-heading text-4xl md:text-6xl font-normal text-white">Our Services</h1>
+            <p className="text-gray-300 mt-4 text-sm leading-relaxed font-light">
+              From concept sketches to completed spaces, we offer a full range of architectural and interior design services.
+            </p>
+          </div>
         </div>
 
         {/* Services list */}
@@ -80,12 +90,22 @@ export default function ServicesPage() {
         </div>
 
         {/* CTA */}
-        <div className="bg-plum-950 py-20 px-6 text-center">
-          <h2 className="font-heading text-3xl md:text-5xl font-normal text-white mb-4">Not sure where to start?</h2>
-          <p className="text-gray-300 mb-8 max-w-md mx-auto font-light">Every project starts with a conversation. Get in touch and we will help you figure out what you need.</p>
-          <Link href="/contact" className="inline-block bg-terracotta-600 hover:bg-terracotta-700 text-white font-semibold py-4 px-8 rounded-full transition-all hover:scale-105 shadow-lg shadow-terracotta-900/30 active:scale-95">
-            Start a Conversation
-          </Link>
+        <div className="bg-plum-950 py-20 px-6 text-center relative overflow-hidden">
+          {/* subtle grid pattern */}
+          <div
+            className="absolute inset-0 opacity-5 pointer-events-none"
+            style={{
+              backgroundImage: "linear-gradient(#ffffff 1px,transparent 1px),linear-gradient(90deg,#ffffff 1px,transparent 1px)",
+              backgroundSize: "60px 60px",
+            }}
+          />
+          <div className="relative z-10 max-w-md mx-auto">
+            <h2 className="font-heading text-3xl md:text-5xl font-normal text-white mb-4">Not sure where to start?</h2>
+            <p className="text-gray-300 mb-8 font-light">Every project starts with a conversation. Get in touch and we will help you figure out what you need.</p>
+            <Link href="/contact" className="inline-block bg-terracotta-600 hover:bg-terracotta-700 text-white font-semibold py-4 px-8 rounded-full transition-all hover:scale-105 shadow-lg shadow-terracotta-900/30 active:scale-95">
+              Start a Conversation
+            </Link>
+          </div>
         </div>
       </main>
       <Footer />

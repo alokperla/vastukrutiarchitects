@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import Footer from "@/components/Footer";
-import { projects as staticProjects, Project } from "@/lib/projects";
+import { Project } from "@/lib/projects";
 import { useState, useCallback, useEffect } from "react";
 
 const categories = ["All", "Interior", "Architecture", "Commercial", "3D Visualization"];
@@ -11,36 +11,42 @@ const categories = ["All", "Interior", "Architecture", "Commercial", "3D Visuali
 export default function ProjectsPage() {
   const [active, setActive] = useState("All");
   const [lightboxIdx, setLightboxIdx] = useState<number | null>(null);
-  const [allProjectsList, setAllProjectsList] = useState<Project[]>(staticProjects);
+  const [allProjectsList, setAllProjectsList] = useState<Project[]>([]);
+  const [loading, setLoading] = useState(true);
 
-  // Fetch DB projects & combine with static projects
+  // Fetch only DB projects added via admin panel
   useEffect(() => {
     async function loadDbProjects() {
+      setLoading(true);
       try {
         const res = await fetch("/api/projects");
         if (res.ok) {
           const dbProjects = await res.json();
-          if (Array.isArray(dbProjects) && dbProjects.length > 0) {
-            const mappedDb: Project[] = dbProjects.map((p) => ({
-              slug: p.slug,
-              src: p.coverImage,
-              gallery: p.gallery && p.gallery.length > 0 ? p.gallery : [p.coverImage],
-              title: p.title,
-              category: p.category,
-              desc: p.description,
-              year: p.year,
-              location: p.location,
-              area: p.area,
-              scope: p.scope || [],
-            }));
-            // Combine DB projects at the top, avoiding duplicate slugs
-            const dbSlugs = new Set(mappedDb.map((p) => p.slug));
-            const remainingStatic = staticProjects.filter((p) => !dbSlugs.has(p.slug));
-            setAllProjectsList([...mappedDb, ...remainingStatic]);
+          if (Array.isArray(dbProjects)) {
+            const mappedDb: Project[] = dbProjects
+              .filter((p: any) => p.published !== false)
+              .map((p: any) => ({
+                slug: p.slug,
+                src: p.coverImage,
+                gallery: p.gallery && p.gallery.length > 0 ? p.gallery : [p.coverImage],
+                title: p.title,
+                category: p.category,
+                desc: p.description,
+                year: p.year,
+                location: p.location,
+                area: p.area,
+                scope: p.scope || [],
+                coverCaption: p.coverCaption || "",
+                videoUrl: p.videoUrl || "",
+                isFeatured: p.isFeatured,
+              }));
+            setAllProjectsList(mappedDb);
           }
         }
       } catch (err) {
         console.error("Error loading DB projects:", err);
+      } finally {
+        setLoading(false);
       }
     }
     loadDbProjects();
@@ -150,7 +156,14 @@ export default function ProjectsPage() {
           </div>
 
           {/* Horizontal Project List (Essajees Atelier Inspired) */}
-          {filtered.length === 0 ? (
+          {loading ? (
+            <div className="py-24 flex flex-col items-center justify-center gap-3">
+              <div className="w-8 h-8 border-2 border-terracotta-500 border-t-transparent rounded-full animate-spin" />
+              <p className="text-stone-500 dark:text-stone-400 text-sm font-light">
+                Loading projects...
+              </p>
+            </div>
+          ) : filtered.length === 0 ? (
             <div className="py-24 text-center">
               <p className="text-stone-500 dark:text-stone-400 text-lg font-light">
                 No projects found in this category.

@@ -41,6 +41,7 @@ model ProjectEntry {
   gallery      String[] @default([])
   scope        String[] @default([])
   published    Boolean  @default(true)
+  isFeatured   Boolean  @default(false)
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
 }

@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import Footer from "@/components/Footer";
+import AboutSection from "@/components/AboutSection";
 import { useState, useEffect } from "react";
 import { TeamMember, fallbackTeamMembers } from "@/lib/team";
 
@@ -56,23 +57,11 @@ export default function FirmPage() {
           </div>
         </section>
 
-        {/* Philosophy Intro */}
-        <section className="py-14 px-6 border-b border-plum-100/60 dark:border-gray-900 bg-plum-50/20 dark:bg-gray-950">
-          <div className="max-w-4xl mx-auto text-center">
-            <p className="text-xs uppercase tracking-[0.25em] text-terracotta-600 dark:text-terracotta-400 font-semibold mb-3">
-              Studio Ethos
-            </p>
-            <h2 className="text-2xl md:text-3xl font-bold text-plum-900 dark:text-white leading-snug">
-              Every detail is considered, every material intentional, and every space shaped by human connection.
-            </h2>
-            <p className="text-gray-600 dark:text-gray-400 text-sm md:text-base mt-4 leading-relaxed max-w-2xl mx-auto font-light">
-              Click on any team member below to view their dedicated profile, background, and architectural vision.
-            </p>
-          </div>
-        </section>
+        {/* About Us Section */}
+        <AboutSection />
 
         {/* Team Members List - Stacked horizontally (Left photo, Right description) */}
-        <section className="py-16 px-6 max-w-6xl mx-auto">
+        <section className="py-20 px-6 max-w-6xl mx-auto border-t border-plum-100/70 dark:border-gray-900">
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
             <div>
               <span className="text-xs uppercase tracking-[0.25em] text-terracotta-600 dark:text-terracotta-400 font-semibold">

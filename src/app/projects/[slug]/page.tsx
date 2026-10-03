@@ -1,6 +1,6 @@
 "use client";
 
-import { projects as staticProjects, Project, getYouTubeEmbedUrl } from "@/lib/projects";
+import { Project, getYouTubeEmbedUrl } from "@/lib/projects";
 import Image from "next/image";
 import Link from "next/link";
 import Footer from "@/components/Footer";
@@ -17,38 +17,52 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ slug: 
   useEffect(() => {
     async function loadProject() {
       setLoading(true);
-      // Check static projects first
-      const staticMatch = staticProjects.find((p) => p.slug === slug);
-      if (staticMatch) {
-        setProject(staticMatch);
-        setOthers(staticProjects.filter((p) => p.slug !== slug).slice(0, 3));
-        setLoading(false);
-        return;
-      }
-
-      // If not in static, fetch from DB API
       try {
         const res = await fetch("/api/projects");
         if (res.ok) {
           const dbProjects = await res.json();
-          const dbMatch = dbProjects.find((p: any) => p.slug === slug);
-          if (dbMatch) {
-            const mapped: Project = {
-              slug: dbMatch.slug,
-              src: dbMatch.coverImage,
-              gallery: dbMatch.gallery && dbMatch.gallery.length > 0 ? dbMatch.gallery : [dbMatch.coverImage],
-              title: dbMatch.title,
-              category: dbMatch.category,
-              desc: dbMatch.description,
-              year: dbMatch.year,
-              location: dbMatch.location,
-              area: dbMatch.area,
-              scope: dbMatch.scope || [],
-              coverCaption: dbMatch.coverCaption || "",
-              videoUrl: dbMatch.videoUrl || (dbMatch.youtubeUrls && dbMatch.youtubeUrls[0]) || "",
-            };
-            setProject(mapped);
-            setOthers(staticProjects.slice(0, 3));
+          if (Array.isArray(dbProjects)) {
+            const dbMatch = dbProjects.find((p: any) => p.slug === slug);
+            if (dbMatch) {
+              const mapped: Project = {
+                slug: dbMatch.slug,
+                src: dbMatch.coverImage,
+                gallery: dbMatch.gallery && dbMatch.gallery.length > 0 ? dbMatch.gallery : [dbMatch.coverImage],
+                title: dbMatch.title,
+                category: dbMatch.category,
+                desc: dbMatch.description,
+                year: dbMatch.year,
+                location: dbMatch.location,
+                area: dbMatch.area,
+                scope: dbMatch.scope || [],
+                coverCaption: dbMatch.coverCaption || "",
+                videoUrl: dbMatch.videoUrl || (dbMatch.youtubeUrls && dbMatch.youtubeUrls[0]) || "",
+                isFeatured: dbMatch.isFeatured,
+              };
+              setProject(mapped);
+
+              const otherDbProjects: Project[] = dbProjects
+                .filter((p: any) => p.slug !== slug && p.published !== false)
+                .slice(0, 3)
+                .map((p: any) => ({
+                  slug: p.slug,
+                  src: p.coverImage,
+                  gallery: p.gallery && p.gallery.length > 0 ? p.gallery : [p.coverImage],
+                  title: p.title,
+                  category: p.category,
+                  desc: p.description,
+                  year: p.year,
+                  location: p.location,
+                  area: p.area,
+                  scope: p.scope || [],
+                  coverCaption: p.coverCaption || "",
+                  videoUrl: p.videoUrl || "",
+                  isFeatured: p.isFeatured,
+                }));
+              setOthers(otherDbProjects);
+            } else {
+              setProject(null);
+            }
           }
         }
       } catch (err) {

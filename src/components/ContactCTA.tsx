@@ -15,10 +15,10 @@ export default function ContactCTA() {
             <p className="text-sm sm:text-base md:text-[17px] text-neutral-600 dark:text-neutral-300 font-light leading-relaxed max-w-2xl">
               Have a question for us? Let&apos;s talk. For all project inquiries, please email{" "}
               <a
-                href="mailto:vastukrutiarchitects@gmail.com"
+                href="mailto:vastukruti24@gmail.com"
                 className="font-normal text-plum-950 dark:text-stone-100 underline underline-offset-4 decoration-terracotta-500/70 hover:decoration-terracotta-600 hover:text-terracotta-600 dark:hover:text-terracotta-400 transition-colors"
               >
-                vastukrutiarchitects@gmail.com
+                vastukruti24@gmail.com
               </a>
             </p>
           </div>

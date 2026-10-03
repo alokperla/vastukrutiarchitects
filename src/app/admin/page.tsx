@@ -32,6 +32,7 @@ interface ProjectEntry {
   gallery: string[];
   scope: string[];
   published: boolean;
+  isFeatured: boolean;
   createdAt: string;
 }
 
@@ -58,7 +59,7 @@ export default function AdminDashboard() {
   const router = useRouter();
 
   const [activeTab, setActiveTab] = useState<"enquiries" | "projects" | "team" | "settings">("enquiries");
-  
+
   // Enquiries
   const [enquiries, setEnquiries] = useState<Enquiry[]>([]);
   const [loadingEnquiries, setLoadingEnquiries] = useState(true);
@@ -101,6 +102,7 @@ export default function AdminDashboard() {
     gallery: [] as string[],
     scope: "Space Planning, Interior Design",
     published: true,
+    isFeatured: false,
   });
 
   const [uploadingCover, setUploadingCover] = useState(false);
@@ -241,6 +243,7 @@ export default function AdminDashboard() {
       gallery: [],
       scope: "Space Planning, Interior Design",
       published: true,
+      isFeatured: false,
     });
     setShowProjectModal(true);
   };
@@ -261,6 +264,7 @@ export default function AdminDashboard() {
       gallery: p.gallery || [],
       scope: (p.scope || []).join(", "),
       published: p.published,
+      isFeatured: Boolean(p.isFeatured),
     });
     setShowProjectModal(true);
   };
@@ -307,6 +311,19 @@ export default function AdminDashboard() {
         body: JSON.stringify({ published: !currentPublished }),
       });
       if (res.ok) setProjects((prev) => prev.map((p) => (p.id === id ? { ...p, published: !currentPublished } : p)));
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const toggleProjectFeatured = async (id: number, currentFeatured: boolean) => {
+    try {
+      const res = await fetch(`/api/projects/${id}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ isFeatured: !currentFeatured }),
+      });
+      if (res.ok) setProjects((prev) => prev.map((p) => (p.id === id ? { ...p, isFeatured: !currentFeatured } : p)));
     } catch (err) {
       console.error(err);
     }
@@ -513,41 +530,37 @@ export default function AdminDashboard() {
         <div className="flex gap-6 border-b border-gray-800 mb-8 overflow-x-auto">
           <button
             onClick={() => setActiveTab("enquiries")}
-            className={`pb-4 text-sm font-semibold transition-all relative whitespace-nowrap ${
-              activeTab === "enquiries"
+            className={`pb-4 text-sm font-semibold transition-all relative whitespace-nowrap ${activeTab === "enquiries"
                 ? "text-blue-400 after:absolute after:bottom-0 after:left-0 after:right-0 after:h-0.5 after:bg-blue-500"
                 : "text-gray-400 hover:text-white"
-            }`}
+              }`}
           >
             Enquiries ({enquiries.length})
           </button>
           <button
             onClick={() => setActiveTab("projects")}
-            className={`pb-4 text-sm font-semibold transition-all relative whitespace-nowrap ${
-              activeTab === "projects"
+            className={`pb-4 text-sm font-semibold transition-all relative whitespace-nowrap ${activeTab === "projects"
                 ? "text-blue-400 after:absolute after:bottom-0 after:left-0 after:right-0 after:h-0.5 after:bg-blue-500"
                 : "text-gray-400 hover:text-white"
-            }`}
+              }`}
           >
             Projects Management ({projects.length})
           </button>
           <button
             onClick={() => setActiveTab("team")}
-            className={`pb-4 text-sm font-semibold transition-all relative whitespace-nowrap ${
-              activeTab === "team"
+            className={`pb-4 text-sm font-semibold transition-all relative whitespace-nowrap ${activeTab === "team"
                 ? "text-blue-400 after:absolute after:bottom-0 after:left-0 after:right-0 after:h-0.5 after:bg-blue-500"
                 : "text-gray-400 hover:text-white"
-            }`}
+              }`}
           >
             Firm Team ({teamMembers.length})
           </button>
           <button
             onClick={() => setActiveTab("settings")}
-            className={`pb-4 text-sm font-semibold transition-all relative whitespace-nowrap ${
-              activeTab === "settings"
+            className={`pb-4 text-sm font-semibold transition-all relative whitespace-nowrap ${activeTab === "settings"
                 ? "text-blue-400 after:absolute after:bottom-0 after:left-0 after:right-0 after:h-0.5 after:bg-blue-500"
                 : "text-gray-400 hover:text-white"
-            }`}
+              }`}
           >
             Site Settings
           </button>
@@ -561,11 +574,10 @@ export default function AdminDashboard() {
                 <button
                   key={f}
                   onClick={() => setEnquiryFilter(f)}
-                  className={`capitalize px-4 py-1.5 rounded-full text-xs font-medium border transition-all ${
-                    enquiryFilter === f
+                  className={`capitalize px-4 py-1.5 rounded-full text-xs font-medium border transition-all ${enquiryFilter === f
                       ? "bg-blue-600 border-blue-600 text-white"
                       : "bg-gray-900 border-gray-800 text-gray-400 hover:text-white"
-                  }`}
+                    }`}
                 >
                   {f}
                 </button>
@@ -583,22 +595,20 @@ export default function AdminDashboard() {
                 {filteredEnquiries.map((e) => (
                   <div
                     key={e.id}
-                    className={`bg-gray-900 border rounded-2xl p-6 transition-all ${
-                      e.status === "new" ? "border-blue-500/50 bg-blue-950/10" : "border-gray-800 opacity-90"
-                    }`}
+                    className={`bg-gray-900 border rounded-2xl p-6 transition-all ${e.status === "new" ? "border-blue-500/50 bg-blue-950/10" : "border-gray-800 opacity-90"
+                      }`}
                   >
                     <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
                       <div>
                         <div className="flex items-center gap-3">
                           <h3 className="font-bold text-white text-lg">{e.name}</h3>
                           <span
-                            className={`text-xs px-2.5 py-0.5 rounded-full font-medium capitalize ${
-                              e.status === "new"
+                            className={`text-xs px-2.5 py-0.5 rounded-full font-medium capitalize ${e.status === "new"
                                 ? "bg-blue-500/20 text-blue-400 border border-blue-500/30"
                                 : e.status === "replied"
-                                ? "bg-green-500/20 text-green-400 border border-green-500/30"
-                                : "bg-gray-800 text-gray-400"
-                            }`}
+                                  ? "bg-green-500/20 text-green-400 border border-green-500/30"
+                                  : "bg-gray-800 text-gray-400"
+                              }`}
                           >
                             {e.status}
                           </span>
@@ -664,6 +674,13 @@ export default function AdminDashboard() {
                   <div key={p.id} className="bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden flex flex-col">
                     <div className="relative aspect-[4/3] bg-gray-950">
                       <Image src={p.coverImage} alt={p.title} fill className="object-cover" />
+                      <div className="absolute top-3 left-3 flex gap-2">
+                        {p.isFeatured && (
+                          <span className="text-xs px-2.5 py-1 rounded-full font-semibold bg-amber-500 text-amber-950 shadow-md flex items-center gap-1">
+                            ★ Featured
+                          </span>
+                        )}
+                      </div>
                       <div className="absolute top-3 right-3 flex gap-2">
                         <span className={`text-xs px-2.5 py-1 rounded-full font-semibold ${p.published ? "bg-green-500/80 text-white" : "bg-gray-800/80 text-gray-300"}`}>
                           {p.published ? "Published" : "Draft"}
@@ -689,25 +706,42 @@ export default function AdminDashboard() {
                         )}
                         <p className="text-xs text-gray-300 mt-2 line-clamp-2">{p.description}</p>
                       </div>
-                      <div className="flex gap-2 mt-4 pt-4 border-t border-gray-800">
-                        <button
-                          onClick={() => openEditProjectModal(p)}
-                          className="flex-1 bg-blue-950/60 hover:bg-blue-900 border border-blue-800/60 text-xs text-blue-300 py-2 rounded-xl transition-all"
-                        >
-                          Edit
-                        </button>
-                        <button
-                          onClick={() => toggleProjectPublished(p.id, p.published)}
-                          className="flex-1 bg-gray-800 hover:bg-gray-700 text-xs text-gray-300 py-2 rounded-xl transition-all"
-                        >
-                          {p.published ? "Unpublish" : "Publish"}
-                        </button>
-                        <button
-                          onClick={() => deleteProject(p.id)}
-                          className="bg-red-950/50 hover:bg-red-900 border border-red-800/80 text-red-400 text-xs px-3 py-2 rounded-xl transition-all"
-                        >
-                          Delete
-                        </button>
+                      <div className="flex flex-col gap-2.5 mt-4 pt-4 border-t border-gray-800">
+                        <div className="flex items-center justify-between gap-2">
+                          <button
+                            type="button"
+                            onClick={() => toggleProjectFeatured(p.id, p.isFeatured)}
+                            className={`flex-1 text-xs py-1.5 px-3 rounded-xl border font-medium transition-all flex items-center justify-center gap-1.5 ${
+                              p.isFeatured
+                                ? "bg-amber-500/20 text-amber-300 border-amber-500/40 hover:bg-amber-500/30"
+                                : "bg-gray-800/90 text-gray-400 border-gray-700/80 hover:text-white hover:bg-gray-700"
+                            }`}
+                            title={p.isFeatured ? "Click to unmark as featured" : "Click to mark as featured"}
+                          >
+                            <span>{p.isFeatured ? "★ Featured" : "☆ Mark Featured"}</span>
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => toggleProjectPublished(p.id, p.published)}
+                            className="text-xs text-gray-400 hover:text-white px-2 py-1.5 transition-colors"
+                          >
+                            {p.published ? "Unpublish" : "Publish"}
+                          </button>
+                        </div>
+                        <div className="flex gap-2">
+                          <button
+                            onClick={() => openEditProjectModal(p)}
+                            className="flex-1 bg-blue-950/60 hover:bg-blue-900 border border-blue-800/60 text-xs text-blue-300 py-2 rounded-xl transition-all"
+                          >
+                            Edit
+                          </button>
+                          <button
+                            onClick={() => deleteProject(p.id)}
+                            className="bg-red-950/50 hover:bg-red-900 border border-red-800/80 text-red-400 text-xs px-3 py-2 rounded-xl transition-all"
+                          >
+                            Delete
+                          </button>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -807,7 +841,7 @@ export default function AdminDashboard() {
                 <input
                   type="email" value={settings.email}
                   onChange={(e) => setSettings({ ...settings, email: e.target.value })}
-                  placeholder="vastukrutiarchitects@gmail.com"
+                  placeholder="vastukruti24@gmail.com"
                   className="w-full bg-gray-800 border border-gray-700 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-blue-500"
                 />
               </div>
@@ -884,7 +918,7 @@ export default function AdminDashboard() {
                     Featured as the main project hero visual and thumbnail across portfolio galleries.
                   </p>
                 </div>
-                
+
                 {formProject.coverImage ? (
                   <div className="relative aspect-[16/9] rounded-xl overflow-hidden border border-gray-800 mb-2">
                     <Image src={formProject.coverImage} alt="Cover Preview" fill className="object-cover" />
@@ -1056,6 +1090,54 @@ export default function AdminDashboard() {
                   className="w-full bg-gray-800 border border-gray-700 rounded-xl px-4 py-2.5 text-white text-sm focus:outline-none focus:border-blue-500"
                   placeholder="Interior Design, Space Planning, Lighting"
                 />
+              </div>
+
+              {/* FEATURED & PUBLISHED TOGGLES */}
+              <div className="space-y-3 pt-2">
+                <div className="bg-gradient-to-r from-amber-950/40 via-gray-900 to-gray-900 border border-amber-500/30 rounded-2xl p-4 flex items-center justify-between">
+                  <div className="pr-4">
+                    <div className="flex items-center gap-2">
+                      <span className="text-amber-400 font-bold text-sm">★</span>
+                      <label htmlFor="isFeaturedToggle" className="text-sm font-semibold text-white cursor-pointer select-none">
+                        Mark as Featured Project
+                      </label>
+                    </div>
+                    <p className="text-xs text-gray-400 mt-1">
+                      Featured projects are prioritized and showcased in the &quot;Featured Projects&quot; section on the homepage.
+                    </p>
+                  </div>
+                  <label className="relative inline-flex items-center cursor-pointer shrink-0">
+                    <input
+                      id="isFeaturedToggle"
+                      type="checkbox"
+                      checked={formProject.isFeatured}
+                      onChange={(e) => setFormProject({ ...formProject, isFeatured: e.target.checked })}
+                      className="sr-only peer"
+                    />
+                    <div className="w-11 h-6 bg-gray-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-amber-500"></div>
+                  </label>
+                </div>
+
+                <div className="bg-gray-950 border border-gray-800 rounded-2xl p-4 flex items-center justify-between">
+                  <div className="pr-4">
+                    <label htmlFor="publishedToggle" className="text-sm font-semibold text-white cursor-pointer select-none">
+                      Published Status
+                    </label>
+                    <p className="text-xs text-gray-400 mt-1">
+                      Draft projects are hidden from public portfolio pages until published.
+                    </p>
+                  </div>
+                  <label className="relative inline-flex items-center cursor-pointer shrink-0">
+                    <input
+                      id="publishedToggle"
+                      type="checkbox"
+                      checked={formProject.published}
+                      onChange={(e) => setFormProject({ ...formProject, published: e.target.checked })}
+                      className="sr-only peer"
+                    />
+                    <div className="w-11 h-6 bg-gray-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-green-500"></div>
+                  </label>
+                </div>
               </div>
 
               <div className="flex gap-3 pt-4 border-t border-gray-800">

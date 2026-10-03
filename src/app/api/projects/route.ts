@@ -1,6 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import { revalidatePath } from "next/cache";
 import { z } from "zod";
+
+export const dynamic = "force-dynamic";
 
 const projectSchema = z.object({
   title: z.string().min(1, "Title is required"),
@@ -16,11 +19,23 @@ const projectSchema = z.object({
   gallery: z.array(z.string()).default([]),
   scope: z.array(z.string()).default([]),
   published: z.boolean().default(true),
+  isFeatured: z.boolean().default(false),
 });
 
-export async function GET() {
+export async function GET(req: NextRequest) {
   try {
+    const { searchParams } = new URL(req.url);
+    const featuredParam = searchParams.get("featured");
+
+    const where: { isFeatured?: boolean } = {};
+    if (featuredParam === "true") {
+      where.isFeatured = true;
+    } else if (featuredParam === "false") {
+      where.isFeatured = false;
+    }
+
     const projects = await prisma.projectEntry.findMany({
+      where,
       orderBy: { createdAt: "desc" },
     });
     return NextResponse.json(projects);
@@ -34,6 +49,8 @@ export async function POST(req: NextRequest) {
     const body = await req.json();
     const data = projectSchema.parse(body);
     const project = await prisma.projectEntry.create({ data });
+    revalidatePath("/");
+    revalidatePath("/projects");
     return NextResponse.json(project, { status: 201 });
   } catch (err) {
     if (err instanceof z.ZodError) {

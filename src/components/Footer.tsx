@@ -45,14 +45,14 @@ export default function Footer() {
               VastuKruti Architects &amp; Interior Studio
             </p>
             <p className="text-gray-400">
-              Pune &bull; Mumbai &bull; Ahmedabad, India
+              PUNE &bull; MUMBAI &bull; SOLAPUR -  PAN  INDIA
             </p>
             <p>
               <a
-                href="mailto:vastukrutiarchitects@gmail.com"
+                href="mailto:vastukruti24@gmail.com"
                 className="hover:text-terracotta-400 transition-colors duration-200"
               >
-                vastukrutiarchitects@gmail.com
+                vastukruti24@gmail.com
               </a>
             </p>
             <p>
@@ -97,7 +97,7 @@ export default function Footer() {
 
             {/* Email */}
             <a
-              href="mailto:vastukrutiarchitects@gmail.com"
+              href="mailto:vastukruti24@gmail.com"
               aria-label="Email"
               className="p-2.5 rounded-full bg-white/5 hover:bg-white/10 text-gray-300 hover:text-terracotta-400 border border-white/10 hover:border-terracotta-500/50 transition-all hover:scale-110 flex items-center justify-center"
             >

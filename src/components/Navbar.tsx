@@ -211,20 +211,31 @@ export default function Navbar() {
               </svg>
             </a>
 
-            {/* LinkedIn Link */}
+            {/* YouTube Link */}
             <a
-              href="https://www.linkedin.com"
+              href="https://www.youtube.com"
               target="_blank"
               rel="noopener noreferrer"
-              aria-label="LinkedIn"
+              aria-label="YouTube"
               className={`p-2 rounded-full transition-all hover:scale-110 ${
                 isDarkOverlay
                   ? "text-white/90 hover:text-white hover:bg-white/10 drop-shadow-[0_1px_3px_rgba(0,0,0,0.7)]"
                   : "text-plum-900 dark:text-gray-200 hover:text-terracotta-600 dark:hover:text-terracotta-400 hover:bg-plum-50 dark:hover:bg-neutral-800"
               }`}
             >
-              <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
-                <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.2V10.9H6.46M7.83 6.64a1.68 1.68 0 0 0-1.68 1.68c0 .93.75 1.69 1.68 1.69s1.69-.76 1.69-1.69c0-.93-.76-1.68-1.69-1.68Z" />
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={1.5}
+                  d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"
+                />
+                <polygon
+                  points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"
+                  strokeWidth={1.5}
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
               </svg>
             </a>
           </div>
@@ -335,14 +346,25 @@ export default function Navbar() {
               </svg>
             </a>
             <a
-              href="https://www.linkedin.com"
+              href="https://www.youtube.com"
               target="_blank"
               rel="noopener noreferrer"
-              aria-label="LinkedIn"
+              aria-label="YouTube"
               className="p-2 rounded-full bg-black/5 dark:bg-white/5 hover:bg-black/10 dark:hover:bg-white/10 text-neutral-600 dark:text-neutral-300 hover:text-terracotta-600 dark:hover:text-terracotta-400 transition-all flex items-center justify-center"
             >
-              <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
-                <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.2V10.9H6.46M7.83 6.64a1.68 1.68 0 0 0-1.68 1.68c0 .93.75 1.69 1.68 1.69s1.69-.76 1.69-1.69c0-.93-.76-1.68-1.69-1.68Z" />
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={1.5}
+                  d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"
+                />
+                <polygon
+                  points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"
+                  strokeWidth={1.5}
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
               </svg>
             </a>
           </div>

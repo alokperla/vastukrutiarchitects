@@ -62,10 +62,20 @@ export default function ContactPage() {
     <>
       <main className="min-h-screen bg-white dark:bg-gray-950 pt-20">
         <div className="bg-plum-950 py-20 text-center relative overflow-hidden">
+          {/* subtle grid pattern */}
+          <div
+            className="absolute inset-0 opacity-5 pointer-events-none"
+            style={{
+              backgroundImage: "linear-gradient(#ffffff 1px,transparent 1px),linear-gradient(90deg,#ffffff 1px,transparent 1px)",
+              backgroundSize: "60px 60px",
+            }}
+          />
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-terracotta-900/20 via-transparent to-transparent pointer-events-none" />
-          <p className="text-xs uppercase tracking-[0.3em] text-terracotta-400 font-semibold mb-3">Reach Out</p>
-          <h1 className="text-4xl md:text-6xl font-bold text-white">Contact Us</h1>
-          <p className="text-gray-300 mt-4 max-w-md mx-auto text-sm leading-relaxed">Have a project in mind? We would love to hear about it.</p>
+          <div className="relative z-10 max-w-md mx-auto px-4">
+            <p className="text-xs uppercase tracking-[0.3em] text-terracotta-400 font-semibold mb-3">Reach Out</p>
+            <h1 className="text-4xl md:text-6xl font-bold text-white">Contact Us</h1>
+            <p className="text-gray-300 mt-4 text-sm leading-relaxed">Have a project in mind? We would love to hear about it.</p>
+          </div>
         </div>
 
         <div className="max-w-6xl mx-auto px-6 py-20 grid md:grid-cols-5 gap-16">

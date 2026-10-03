@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useEffect, useRef, useState } from "react";
 
@@ -23,7 +23,7 @@ export function useCountUp(target: number, duration = 2000) {
         };
         requestAnimationFrame(step);
       }
-    }, { threshold: 0.5 });
+    }, { threshold: 0.2 });
     observer.observe(el);
     return () => observer.disconnect();
   }, [target, duration]);
